@@ -1,0 +1,14 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Listado de Galerias</h1>
+    <ul>
+        {% for galeria_info in galerias_info %}
+            <li>{{ galeria_info.nombre_galeria }} - {{ galeria_info.direccion }}</li>
+            <ul>
+                {% for obra_info in galeria_info.obras_info %}
+                    <li>{{ obra_info.nombre_obra }} (Artista: {{ obra_info.nombre_artista }})</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+{% endblock contenidoNuevo %}

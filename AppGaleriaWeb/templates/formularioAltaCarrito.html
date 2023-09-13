@@ -1,0 +1,30 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Alta de Carrito</h1>
+    <form action="{% url 'formularioAltaCarrito' %}" method="post" class="text-center">
+        {% csrf_token %}
+        
+        
+        <label for="id_comprador">Comprador:</label>
+        <select id="id_comprador" name="comprador" required>
+            <option value="" disabled selected>Selecciona un comprador</option>
+            {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}">{{ usuario.nombreUsuario }}</option>
+            {% endfor %}
+        </select>
+        
+        
+        <div>
+            <label for="id_obras">Obras de Arte:</label>
+            <select id="id_obras" name="obras"  multiple>
+                {% for obra in obras_de_arte %}
+                    <option value="{{ obra.id }}">{{ obra.titulo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+    </form>
+{% endblock contenidoNuevo %}
+
+

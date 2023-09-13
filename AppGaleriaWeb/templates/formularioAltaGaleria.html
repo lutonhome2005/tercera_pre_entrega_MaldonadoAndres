@@ -1,0 +1,25 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Alta de Galería</h1>
+    <form action="{% url 'formularioAltaGaleria' %}" method="post">
+        {% csrf_token %}
+        
+        <label for="id_nombre">Nombre de la Galería:</label>
+        <input type="text" id="id_nombre" name="nombre" maxlength="50" required><br>
+        
+        <label for="id_descripcion">Descripción de la Galería:</label>
+        <textarea id="id_descripcion" name="descripcion" rows="4" required></textarea><br>
+        
+        <label for="id_fechaCreacion">Fecha de Creación:</label>
+        <input type="date" id="id_fechaCreacion" name="fechaCreacion" required><br>
+        
+        <label for="id_obras">Obras de Arte:</label>
+        <select id="id_obras" name="obras" multiple>
+            {% for obra in obras_de_arte %}
+                <option value="{{ obra.id }}">{{ obra.titulo }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <button type="submit">Guardar</button>
+    </form>
+{% endblock contenidoNuevo %}

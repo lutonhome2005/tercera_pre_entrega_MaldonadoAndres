@@ -1,0 +1,21 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Alta de Artistas</h1>
+    <form action="{% url 'formularioAltaArtista' %}" method="post"> {% csrf_token %}
+        
+        <label for="id_nombreArtista">Nombre del Artista:</label>
+        <input type="text" id="id_nombreArtista" name="nombreArtista" maxlength="50" required><br>
+        
+        <label for="id_apellidoArtista">Apellido del Artista:</label>
+        <input type="text" id="id_apellidoArtista" name="apellidoArtista" maxlength="60" required><br>
+        
+        <label for="id_nacionalidadArtista">Nacionalidad del Artista:</label>
+        <input type="text" id="id_nacionalidadArtista" name="nacionalidadArtista" maxlength="50" required><br>
+        
+        <label for="id_emailArtista">Email del Artista:</label>
+        <input type="email" id="id_emailArtista" name="emailArtista" required><br>
+        
+        <button type="submit">Guardar</button>
+    </form>
+    
+{% endblock contenidoNuevo %}

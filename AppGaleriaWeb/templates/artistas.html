@@ -1,0 +1,14 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Listado de Artistas</h1>
+    <ul>
+        {% for artista in artistas %}
+            <li>
+                <strong>Nombre:</strong> {{ artista.nombreArtista }}<br>
+                <strong>Apellido:</strong> {{ artista.apellidoArtista }}<br>
+                <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
+                <strong>Email:</strong> {{ artista.emailArtista }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock contenidoNuevo %}
