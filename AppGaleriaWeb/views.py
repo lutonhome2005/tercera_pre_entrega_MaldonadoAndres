@@ -206,3 +206,39 @@ def lista_galerias(request):
         galerias_info.append(galeria_info)
     
     return render(request, 'galerias.html', {'galerias_info': galerias_info})
+
+#Busqueda de artistas
+def buscar_artista(request):
+    resultados = None
+    sin_resultados= False 
+
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre_artista')
+        apellido = request.POST.get('apellido_artista')
+        nacionalidad = request.POST.get('nacionalidad_artista')
+        email = request.POST.get('email_artista')
+
+        # Realiza la búsqueda en base a los campos del formulario
+        resultados = Artista.objects.filter(
+            nombreArtista__icontains=nombre,
+            apellidoArtista__icontains=apellido,
+            nacionalidadArtista__icontains=nacionalidad,
+            emailArtista__icontains=email
+        )
+        if not resultados:
+            sin_resultados = True
+            
+    else:
+        nombre = ''
+        apellido = ''
+        nacionalidad = ''
+        email = ''
+
+    return render(request, 'buscar_artista.html', {
+        'nombre': nombre,
+        'apellido': apellido,
+        'nacionalidad': nacionalidad,
+        'email': email,
+        'resultados': resultados,
+        'sin_resultados': sin_resultados,
+    })

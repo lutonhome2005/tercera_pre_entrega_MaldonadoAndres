@@ -1,0 +1,31 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Buscar Artista</h1>
+    <ul>
+       
+    <form method="post">
+        {% csrf_token %}
+        <label for="nombre_artista">Nombre del artista:</label>
+        <input type="text" name="nombre_artista" value="{{ nombre }}"><br>
+        <label for="apellido_artista">Apellido del artista:</label>
+        <input type="text" name="apellido_artista" value="{{ apellido }}"><br>
+        <label for="nacionalidad_artista">Nacionalidad del artista:</label>
+        <input type="text" name="nacionalidad_artista" value="{{ nacionalidad }}"><br>
+        <label for="email_artista">Email del artista:</label>
+        <input type="text" name="email_artista" value="{{ email }}"><br>
+        <input type="submit" value="Buscar">
+    </form>
+
+    {% if resultados %}
+        <h2>Resultados de la búsqueda:</h2>
+        <ul>
+            {% for artista in resultados %}
+                <li>{{ artista.nombreArtista }} {{ artista.apellidoArtista }}</li>
+            {% endfor %}
+        </ul>
+    {% elif sin_resultados %}
+        <p>Registro no encontrado </p>
+    {% endif %}
+    </ul>
+{% endblock contenidoNuevo %}
+

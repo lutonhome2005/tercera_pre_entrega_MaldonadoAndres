@@ -20,6 +20,7 @@ urlpatterns = [
     path('formularioAltaCarrito/', formularioAltaCarrito, name='formularioAltaCarrito'),#Nueva URL para dar de alta los Carritos
     path('lista_artistas/', lista_artistas, name='lista_artistas'),# Nueva URL para listar los artistas
     path('lista_galerias/', lista_galerias, name='lista_galerias'),# Nueva URL para listar los galerias
+    path('buscar_artista/', buscar_artista, name='buscar_artista'),# Nueva URL para Buscar los artistas
     
     
 ]   
