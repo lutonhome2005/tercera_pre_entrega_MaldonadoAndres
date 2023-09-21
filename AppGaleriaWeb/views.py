@@ -21,6 +21,11 @@ def galerias(request):
 def registrarse(request):
     return render(request,'registrarse.html')
 
+#Creamos la vista de Registro de usuarios
+def registrar (request):
+    return render(request,'registro.html')
+
+
 #Creamos la vista de contactos
 def contactos(request):
     return render(request,'contactos.html')
@@ -37,16 +42,17 @@ def formularioAltaArtista(request):
         apellido_artista = request.POST['apellidoArtista']
         nacionalidad_artista = request.POST['nacionalidadArtista']
         email_artista = request.POST['emailArtista']
+        tipo = request.POST['tipo']  # Obtener el tipo de usuario
         #Creo la instancia del modelo Artista y la guarda en BD
         
         artista = Artista(
-            nombreArtista=nombre_artista,
-            apellidoArtista=apellido_artista,
-            nacionalidadArtista=nacionalidad_artista,
-            emailArtista=email_artista
-        )
+                nombreArtista=nombre_artista,
+                apellidoArtista=apellido_artista,
+                nacionalidadArtista=nacionalidad_artista,
+                emailArtista=email_artista
+            )
         artista.save()
-          
+            
         #form = formularioAltaArtista(request.POST)
         return render(request, 'index.html')  # si todo salio bien envia a págian de inicio
     

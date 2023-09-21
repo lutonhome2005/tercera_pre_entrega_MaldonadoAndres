@@ -15,7 +15,20 @@
         <label for="id_emailUsuario">Email del Usuario:</label>
         <input type="email" id="id_emailUsuario" name="emailUsuario" required><br>
         
-        <button type="submit">Guardar</button>
+        <button type="submit">Guardar</button> 
+        
+        <!-- Botón "Cancelar"  -->
+        
+        <button type="button" id="botonCancelar">Cancelar</button>
+        
+        <script>
+            // Evitar que se envíe el formulario cuando se hace clic en "Cancelar"
+            document.getElementById('botonCancelar').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Se redirige a la página de inicio
+                window.location.href = "{% url 'index' %}";
+            });
+        </script>
     </form>
     
 {% endblock contenidoNuevo %}

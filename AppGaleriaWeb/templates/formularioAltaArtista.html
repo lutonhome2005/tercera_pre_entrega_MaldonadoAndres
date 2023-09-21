@@ -15,7 +15,25 @@
         <label for="id_emailArtista">Email del Artista:</label>
         <input type="email" id="id_emailArtista" name="emailArtista" required><br>
         
+        <label for="id_tipo">Tipo de usuario:</label>
+        <select id="id_tipo" name="tipo" required>
+            <option value="comun">Usuario Común</option>
+            <option value="artista">Artista</option>
+        </select><br>
+
+
         <button type="submit">Guardar</button>
+        <!-- Botón "Cancelar"  -->
+        
+        <button type="button" id="botonCancelar">Cancelar</button>
+        <script>
+            // Evitar que se envíe el formulario cuando se hace clic en "Cancelar"
+            document.getElementById('botonCancelar').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Se redirige a la página de inicio
+                window.location.href = "{% url 'index' %}";
+            });
+        </script>
     </form>
     
 {% endblock contenidoNuevo %}

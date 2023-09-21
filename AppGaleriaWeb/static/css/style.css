@@ -98,3 +98,40 @@ img {
   border-radius: 4px;
   color: #333;
 }
+
+.circulos {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Doble del tamaño original */
+  margin-top: 20px;
+}
+
+.circulo {
+  width: 200px; /* Doble del tamaño original */
+  height: 200px; /* Doble del tamaño original */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.circulo p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.circulo.artista {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.circulo.usuario {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.circulo:hover {
+  background-color: #2c3e50;
+}

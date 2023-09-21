@@ -8,12 +8,13 @@ urlpatterns = [
     path('vicuDesign/', include('AppGaleriaWeb.urls')),
     
     #path('', index, name='index'),
-    path('index/', index),
+    path('index/', index, name='index'),
     path('artistas/',artistas),
     path('galerias/', galerias),
     path('registrarse/',registrarse),
     path('contactos/',contactos),
     path('formularioAltaArtista/', formularioAltaArtista, name='formularioAltaArtista'),
+    path('registro/', registrar, name='registro'),
     path('formularioAltaUsuario/', formularioAltaUsuario, name='formularioAltaUsuario'),
     path('formularioAltaObraArte/', formularioAltaObraArte, name='formularioAltaObraArte'),# Nueva URL para dar de alta obras de arte
     path('formularioAltaGaleria/', formularioAltaGaleria, name='formularioAltaGaleria'),# Nueva URL para dar de alta Galerias
