@@ -1,0 +1,15 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+  <h1>Detalles de la Obra</h1>
+  <h2>{{ obra.titulo }}</h2>
+    <p>{{ obra.descripcion }}</p>
+    <p>Artista: {{ obra.autor.nombreArtista }}</p>
+    <p>Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
+    <p>Fecha de Creación: {{ obra.fechaCreacion }}</p>
+      {% if obra.vendido %}
+        <p>Estado: Vendido</p>
+      {% endif %}
+      <img src="{{ obra.imagen.url }}" alt="{{ obra.titulo }}" />
+  {% endblock contenidoNuevo %}
+
+

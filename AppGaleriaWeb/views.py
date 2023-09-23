@@ -207,13 +207,16 @@ def lista_galerias(request):
     
     # Crear una lista de diccionarios para almacenar obras y artistas de cada galería
     galerias_info = []
+    
     for galeria in galerias:
         obras = galeria.obras.all()
         obras_info = [{'nombre_obra': obra.titulo, 'nombre_artista': obra.autor.nombreArtista} for obra in obras]
-        galeria_info = {'nombre_galeria': galeria.nombre, 'obras_info': obras_info}
+        galeria_info = {'id_galeria': galeria.pk, 'nombre_galeria': galeria.nombre, 'obras_info': obras_info}
+        
         galerias_info.append(galeria_info)
     
     return render(request, 'galerias.html', {'galerias_info': galerias_info})
+
 
 #Busqueda de artistas
 def buscar_artista(request):
@@ -251,3 +254,12 @@ def buscar_artista(request):
         'sin_resultados': sin_resultados,
     })
 
+def lista_obras_galeria(request, galeria_id):
+    #print("Valor de galeria_id:", galeria_id)  # Imprime 
+    galeria = get_object_or_404(Galeria, pk=galeria_id)
+    obras = galeria.obras.all()
+    return render(request, 'lista_obras.html', {'obras': obras})
+
+def detalle_obra(request, obra_id):
+    obra = get_object_or_404(ObraArte, pk=obra_id)
+    return render(request, 'detalle_obra.html', {'obra': obra})

@@ -7,10 +7,13 @@
                 <img src="https://www.wallpaperflare.com/static/829/227/702/cat-artwork-eyes-deep-art-wallpaper.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{galeria_info_item.nombre_galeria}}</h5>
+                    
+                    <p class="card-text">ID de la galería: {{ galeria_info_item.id_galeria }}</p>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="index/" class="btn btn-primary">Go somewhere</a>
+                    <a href="{% url 'lista_obras_galeria' galeria_info_item.id_galeria %}" class="btn btn-primary">Ver Obras</a>
+                    <!-- Usamos el ID de la galería en el enlace -->
                 </div>
             </div>
         {% endfor %}
     </ul>
-    {% endblock contenidoNuevo %}
+{% endblock contenidoNuevo %}

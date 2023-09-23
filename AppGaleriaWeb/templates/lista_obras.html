@@ -1,0 +1,18 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Obras de la Galería: {{ galeria.nombre }}</h1>
+    <div class="lista-Obras">
+        {% for obra in obras %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ obra.imagen.url }}" class="card-img-top" alt="{{ obra.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ obra.titulo }}</h5>
+                    <p class="card-text">{{ obra.descripcion }}</p>
+                    <p class="card-text">Artista: {{ obra.autor.nombreArtista }}</p>
+                    <p class="card-text">Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
+                    <a href="{% url 'detalle_obra' obra.id %}" class="btn btn-primary">Ver Detalles</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock contenidoNuevo %}
