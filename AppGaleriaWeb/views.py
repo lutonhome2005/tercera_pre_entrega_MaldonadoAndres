@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from django.http import HttpResponse
 from .models import * 
+from django.urls import path
+from AppGaleriaWeb import views
 
 
 # Create your views here.
@@ -248,3 +250,4 @@ def buscar_artista(request):
         'resultados': resultados,
         'sin_resultados': sin_resultados,
     })
+

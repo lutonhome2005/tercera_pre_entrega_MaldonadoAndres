@@ -1,20 +1,16 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
     <h1 class="titulo-centrado">Listado de Galerias</h1>
-    <ul>
-    <section class="lista-Obras">
+    <ul class="lista-Obras">
         {% for galeria_info_item in galerias_info %}
             <div class="card" style="width: 18rem;">
                 <img src="https://www.wallpaperflare.com/static/829/227/702/cat-artwork-eyes-deep-art-wallpaper.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{galeria_info_item.nombre_galeria}}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="index/" class="btn btn-primary">Ingresar</a>
+                    <a href="index/" class="btn btn-primary">Go somewhere</a>
                 </div>
-            </div>    
+            </div>
         {% endfor %}
-    </section>    
-        
-        
     </ul>
-{% endblock contenidoNuevo %}
+    {% endblock contenidoNuevo %}
