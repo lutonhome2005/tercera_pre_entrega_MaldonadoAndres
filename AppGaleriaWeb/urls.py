@@ -24,13 +24,10 @@ urlpatterns = [
     path('formularioAltaCarrito/', formularioAltaCarrito, name='formularioAltaCarrito'),#Nueva URL para dar de alta los Carritos
     path('lista_artistas/', lista_artistas, name='lista_artistas'),# Nueva URL para listar los artistas
     path('lista_galerias/', lista_galerias, name='lista_galerias'),# Nueva URL para listar los galerias
-    
-    
-    
     path('buscar_artista/', buscar_artista, name='buscar_artista'),# Nueva URL para Buscar los artistas
     path('lista_obras_galeria/<int:galeria_id>/', views.lista_obras_galeria, name='lista_obras_galeria'),
     path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
-    
+    path('obras_por_artista/<int:artista_id>/', views.obras_por_artista, name='obras_por_artista'),
     
 ]   
 

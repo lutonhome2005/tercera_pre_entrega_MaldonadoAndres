@@ -1,0 +1,61 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Obras de {{ artista.nombreArtista }} {{ artista.apellidoArtista }}</h1>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% else %}
+        <div class="lista-Obras">
+
+            {% for obra in obras %}
+                <div class="card" style="width: 18rem;">
+                    <!-- Agrega una clase "imagen-modal" para identificar las imágenes -->
+                    <img src="{{ obra.imagen.url }}" class="card-img-top imagen-modal" alt="{{ obra.titulo }}" data-imagen="{{ obra.imagen.url }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ obra.titulo }}</h5>
+                        <p class="card-text">{{ obra.descripcion }}</p>
+                        <p class="card-text">Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
+                        <a href="{% url 'detalle_obra' obra.id %}" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- Agrega el modal y el script JavaScript al final de tu página -->
+    <div id="modal" class="modal">
+        <span class="cerrar-modal" id="cerrarModal">&times;</span>
+        <div class="modal-contenedor">
+            <img class="modal-contenido" id="imagenModal">
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para abrir imágenes en el modal
+        var modal = document.getElementById("modal");
+        var imagenModal = document.getElementById("imagenModal");
+        var imagenesModal = document.querySelectorAll(".imagen-modal");
+
+        imagenesModal.forEach(function (imagen) {
+            imagen.addEventListener("click", function () {
+                var imagenSrc = this.getAttribute("data-imagen");
+                imagenModal.src = imagenSrc;
+                modal.style.display = "block";
+            });
+        });
+
+        modal.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        imagenModal.addEventListener("click", function (event) {
+            event.stopPropagation(); // Evitar que el clic en la imagen cierre el modal
+        });
+
+        // Agregar evento para cerrar el modal con la tecla "Esc"
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" || event.key === "Esc") {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+{% endblock contenidoNuevo %}
+

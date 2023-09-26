@@ -263,3 +263,14 @@ def lista_obras_galeria(request, galeria_id):
 def detalle_obra(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
     return render(request, 'detalle_obra.html', {'obra': obra})
+
+
+def obras_por_artista(request, artista_id):
+    artista = get_object_or_404(Artista, pk=artista_id)
+    obras = ObraArte.objects.filter(autor=artista)
+    
+    if obras:
+        return render(request, 'obras_por_artista.html', {'artista': artista, 'obras': obras})
+    else:
+        mensaje = f"{artista.nombreArtista} {artista.apellidoArtista} no ha registrado ninguna obra."
+        return render(request, 'obras_por_artista.html', {'mensaje': mensaje})

@@ -4,7 +4,6 @@
     <ul class="lista-Obras">
         {% for artista in artistas %}
             <div class="card" style="width: 18rem;">
-                
                 <img src="{{ MEDIA_URL }} anime.jpg" alt="Anime" class="card-img-top" alt="...">
                 <p>{{ MEDIA_URL }}anime.jpg</p>
                 <div class="card-body">
@@ -13,7 +12,7 @@
                         <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
                         <strong>Email:</strong> {{ artista.emailArtista }}
                     </p>
-                    <a href="#" class="btn btn-primary">Ver detalles</a>
+                    <a href="{% url 'obras_por_artista' artista.id %}" class="btn btn-primary">Ver obras</a>
                 </div>
             </div>
         {% endfor %}
