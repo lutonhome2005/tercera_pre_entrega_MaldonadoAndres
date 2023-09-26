@@ -1,14 +1,23 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
     <h1 class="titulo-centrado">Listado de Artistas</h1>
-    <ul>
+    <ul class="lista-Obras">
         {% for artista in artistas %}
-            <li>
-                <strong>Nombre:</strong> {{ artista.nombreArtista }}<br>
-                <strong>Apellido:</strong> {{ artista.apellidoArtista }}<br>
-                <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
-                <strong>Email:</strong> {{ artista.emailArtista }}<br>
-            </li>
+            <div class="card" style="width: 18rem;">
+                
+                <img src="{{ MEDIA_URL }} anime.jpg" alt="Anime" class="card-img-top" alt="...">
+                <p>{{ MEDIA_URL }}anime.jpg</p>
+                <div class="card-body">
+                    <h5 class="card-title">{{ artista.nombreArtista }} {{ artista.apellidoArtista }}</h5>
+                    <p class="card-text">
+                        <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
+                        <strong>Email:</strong> {{ artista.emailArtista }}
+                    </p>
+                    <a href="#" class="btn btn-primary">Ver detalles</a>
+                </div>
+            </div>
         {% endfor %}
     </ul>
 {% endblock contenidoNuevo %}
+
+
