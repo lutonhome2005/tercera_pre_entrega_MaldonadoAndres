@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import * 
 from django.urls import path
 from AppGaleriaWeb import views
+from django import forms
+
+
 
 
 # Create your views here.
@@ -63,7 +66,11 @@ def formularioAltaArtista(request):
         #return render(request,'formularioAltaArtista.html')
         return render(request, 'formularioAltaArtista.html')
 
-from .models import Usuario  # Asegúrate de importar el modelo adecuado
+
+class FormularioAltaArtista(forms.ModelForm):
+    class Meta:
+        model = Artista
+        fields = ['nombreArtista', 'apellidoArtista', 'nacionalidadArtista', 'emailArtista', 'imagen']  
 
 #Creo la funcion para dar de alta los usuarios
 def formularioAltaUsuario(request):
@@ -119,19 +126,18 @@ def formularioAltaObraArte(request):
         )
         obra_arte.save()
 
-        # Puedes mostrar un mensaje de éxito si lo deseas
+        
         return render(request, 'index.html')
 
     else:
-        # Es una solicitud GET, mostrar el formulario
+        
         return render(request, 'formularioAltaObraArte.html', {'artistas': artistas})
         #return render(request, 'formularioAltaObraArte.html')
 
 
 
 # Creo la funcion para dar de alta las galerías
-from django.shortcuts import render
-from .models import Galeria, ObraArte
+
 
 # Vista para el formulario de alta de galería
 def formularioAltaGaleria(request):
@@ -193,14 +199,36 @@ def formularioAltaCarrito(request):
 
 #Listadossss
 
-#Listados de Artistas
+##--------------------------------------------------------------------------
+# #Listados de Artistas
+#def lista_artistas(request):
+#    artistas = Artista.objects.all()
+#    return render(request, 'artistas.html', {'artistas': artistas})
+
+#------------------------------------------
+
+
 def lista_artistas(request):
     artistas = Artista.objects.all()
-    return render(request, 'artistas.html', {'artistas': artistas})
+    artista_seleccionado = None
+
+    # Verificar si se ha seleccionado un artista específico en la solicitud GET
+    artista_id = request.GET.get('artista_id')
+    if artista_id:
+        try:
+            artista_seleccionado = Artista.objects.get(id=artista_id)
+        except Artista.DoesNotExist:
+            pass
+
+    return render(request, 'artistas.html', {
+        'artistas': artistas,
+        'artista_seleccionado': artista_seleccionado,
+    })
+
+
 
 #Listado de Galerias
-from django.shortcuts import render
-from .models import Galeria, ObraArte
+
 
 def lista_galerias(request):
     galerias = Galeria.objects.all()

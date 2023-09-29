@@ -1,7 +1,7 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
     <h1 class="titulo-centrado">Alta de Artistas</h1>
-    <form action="{% url 'formularioAltaArtista' %}" method="post"> {% csrf_token %}
+    <form action="{% url 'formularioAltaArtista' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
         
         <label for="id_nombreArtista">Nombre del Artista:</label>
         <input type="text" id="id_nombreArtista" name="nombreArtista" maxlength="50" required><br>
@@ -15,13 +15,14 @@
         <label for="id_emailArtista">Email del Artista:</label>
         <input type="email" id="id_emailArtista" name="emailArtista" required><br>
         
+        <label for="id_imagen">Imagen del Artista:</label>
+        <input type="file" id="id_imagen" name="imagen" accept="image/*" required><br>
+        
         <label for="id_tipo">Tipo de usuario:</label>
         <select id="id_tipo" name="tipo" required>
             <option value="comun">Usuario Común</option>
             <option value="artista">Artista</option>
         </select><br>
-
-
         <button type="submit">Guardar</button>
         <!-- Botón "Cancelar"  -->
         
@@ -35,5 +36,4 @@
             });
         </script>
     </form>
-    
 {% endblock contenidoNuevo %}

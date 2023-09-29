@@ -185,3 +185,32 @@ body.registro {
   justify-items: center;
   margin: 20px;
 }
+
+/* Establecer una altura fija para las tarjetas */
+
+.artistas-card {
+  border: 2px solid #ccc; /* Borde decorativo */
+  border-radius: 10px; /* Radio de borde para suavizar los bordes */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+  overflow: hidden; /* Para ocultar cualquier contenido fuera del borde */
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(0.5 * var(--bs-gutter-x));
+}
+/* Asegurarse de que el contenido de la tarjeta ocupe todo el espacio disponible */
+.card-body {
+  flex-grow: 1;
+}
+
+/* Estilo para el espacio en blanco cuando no hay imagen */
+.image-placeholder {
+  height: 100%; /* Igualar la altura de la tarjeta */
+  background-color: #eee; /* Color de fondo gris claro como relleno */
+}
+
+/* Ajustar el tamaño de la imagen si es necesario */
+.card-img-top {
+  max-width: 100%; /* Ajustar el ancho máximo de la imagen */
+  max-height: 100px; /* Ajustar la altura máxima de la imagen según tus preferencias */
+  object-fit: contain; /* Mantener la relación de aspecto y ajustar dentro de la tarjeta */
+}

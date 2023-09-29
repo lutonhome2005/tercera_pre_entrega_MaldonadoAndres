@@ -1,11 +1,10 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
     <h1 class="titulo-centrado">Obras de {{ artista.nombreArtista }} {{ artista.apellidoArtista }}</h1>
-    {% if mensaje %}
-        <p>{{ mensaje }}</p>
-    {% else %}
-        <div class="lista-Obras">
-
+    <div class="lista-Obras">
+        {% if mensaje %}
+            <p>{{ mensaje }}</p>
+        {% else %}
             {% for obra in obras %}
                 <div class="card" style="width: 18rem;">
                     <!-- Agrega una clase "imagen-modal" para identificar las imágenes -->
@@ -15,11 +14,12 @@
                         <p class="card-text">{{ obra.descripcion }}</p>
                         <p class="card-text">Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
                         <a href="{% url 'detalle_obra' obra.id %}" class="btn btn-primary">Ver Detalles</a>
+                        <a href="/lista_artistas/" class="btn btn-primary">Volver</a>
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
     <!-- Agrega el modal y el script JavaScript al final de tu página -->
     <div id="modal" class="modal">
         <span class="cerrar-modal" id="cerrarModal">&times;</span>
@@ -58,4 +58,3 @@
         });
     </script>
 {% endblock contenidoNuevo %}
-

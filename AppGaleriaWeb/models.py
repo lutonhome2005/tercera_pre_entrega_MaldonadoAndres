@@ -25,6 +25,7 @@ class Artista (models.Model):
     apellidoArtista = models.CharField(max_length= 60)
     nacionalidadArtista = models.CharField(max_length=50)
     emailArtista = models.EmailField(unique=True)
+    imagen = models.ImageField(upload_to='artistas/', null=True, blank=True)
 
     def __str__(self):
         return f' {self.nombreArtista} - {self.apellidoArtista}'

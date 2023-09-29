@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     {% load static %}
     <title>Arte - Diseño</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="stylesheet" href="/static/css/style.css">-->
-
 
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,73 +20,90 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style>
+      /* Tus reglas CSS personalizadas aquí */
+      .artistas-card {
+          border: 2px solid #ccc; /* Borde decorativo */
+          border-radius: 10px; /* Radio de borde para suavizar los bordes */
+          box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+          overflow: hidden; /* Para ocultar cualquier contenido fuera del borde */
+          margin-top: calc(-1 * var(--bs-gutter-y));
+          margin-right: calc(-0.5 * var(--bs-gutter-x));
+          margin-left: calc(0.5 * var(--bs-gutter-x));
+      }
 
-    </head>
-    <body>
-      <div class="w3-row">
-        <div class="w3-half"><h1 class="text-left"> <br>Arte -  Diseño</h1></div>
-        <div class="w3-half"><h2 class="text-right align-self-center">CODERHOUSE<br><b>PROYECTO WEB</b></h2></div>
-      </div>
-      <div class="w3-row">
-        <div class="w3-quarter">
-          <br>
-            <div class="menu">
-             <nav class="navbar">
-               <ul class="navbar-nav list-group">
-                  <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href='/index'>Inicio</a>
-                  </li>
-                  <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href='/lista_galerias'>Galerias</a>
-                  </li>
-                  <li class="nav-item text-center list-group-item">
-                      <a class="nav-link" href='/lista_artistas'>Artistas</a>
-                  </li>
-                  <li class="nav-item text-center list-group-item">
-                      <!--<a class="nav-link" href='/formularioAltaArtista'>Registrarse</a>-->
-                      <a class="nav-link" href='/registro'>Registrarse</a>
-                  </li>
-                  <li class="nav-item text-center list-group-item">
-                    <a class="nav-link" href='/contactos'>Contactos</a>
-                </li>
-               </ul>
+      /* Estilo para el espacio en blanco cuando no hay imagen */
+      .image-placeholder {
+          height: 150px;
+          background-color: #eee; /* Color de fondo gris claro como relleno */
+      }
+  </style>
+</head>
+<body>
+<div class="w3-row">
+    <div class="w3-half"><h1 class="text-left"> <br>Arte -  Diseño</h1></div>
+    <div class="w3-half"><h2 class="text-right align-self-center">CODERHOUSE<br><b>PROYECTO WEB</b></h2></div>
+</div>
+<div class="w3-row">
+    <div class="w3-quarter">
+        <br>
+        <div class="menu">
+            <nav class="navbar">
+                <ul class="navbar-nav list-group">
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href='/index'>Inicio</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href='/lista_galerias'>Galerias</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href='/lista_artistas'>Artistas</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <!--<a class="nav-link" href='/formularioAltaArtista'>Registrarse</a>-->
+                        <a class="nav-link" href='/registro'>Registrarse</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href='/contactos'>Contactos</a>
+                    </li>
+                </ul>
             </nav>
-           <ul class="site-links">
-             <li class="text-right">
-                 <a href="#">Nuestos Servicios</a>
-             </li>
-             <li class="text-right">
-                 <a href="#">Sobre Nosotros</a>
-             </li>
-             <li class="text-right">
-                 <a href="#">Blog</a>
-             </li>
-           </ul>
-           <br>
-           <br>
-           <br>
-           <ul class="social text-center">
-             <li> <a href="#"><i class="fab fa-facebook-f"></i></a>
-             </li>
-             <li> <a href="#"><i class="fab fa-google-plus-g"></i></a>
-             </li>
-             <li> <a href="#"><i class="fab fa-twitter"></i></a>
-             </li>
-             <li> <a href="#"><i class="fab fa-pinterest-p"></i></a>
-             </li>
-             <li> <a href="#"><i class="fab fa-behance"></i></a>
-             </li>
-             <li> <a href="#"><i class="fab fa-instagram"></i></a>
-             </li>
-           </ul>
-           <br>
-         </div>
+            <ul class="site-links">
+                <li class="text-right">
+                    <a href="#">Nuestos Servicios</a>
+                </li>
+                <li class="text-right">
+                    <a href="#">Sobre Nosotros</a>
+                </li>
+                <li class="text-right">
+                    <a href="#">Blog</a>
+                </li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <ul class="social text-center">
+                <li> <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li> <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </li>
+                <li> <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li> <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </li>
+                <li> <a href="#"><i class="fab fa-behance"></i></a>
+                </li>
+                <li> <a href="#"><i class="fab fa-instagram"></i></a>
+                </li>
+            </ul>
+            <br>
         </div>
-       <!-- {% include 'imagenes.html' %}-->
+    </div>
+    <!-- Contenido de artistas dentro del bloque de contenidoNuevo -->
+    <div class="w3-threequarter">
         {% block contenidoNuevo %}
-       
         {% endblock contenidoNuevo %}
-
-      </div>
-    </body>
-  </html>
+    </div>
+</div>
+</body>
+</html>

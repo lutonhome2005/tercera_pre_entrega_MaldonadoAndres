@@ -1,22 +1,87 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
-    <h1 class="titulo-centrado">Listado de Artistas</h1>
-    <ul class="lista-Obras">
-        {% for artista in artistas %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{ MEDIA_URL }} anime.jpg" alt="Anime" class="card-img-top" alt="...">
-                <p>{{ MEDIA_URL }}anime.jpg</p>
+{% load static %}
+
+<h1 class="titulo-centrado">Listado de Artistas</h1>
+
+<!-- Agregar el formulario de selección de artistas -->
+<!-- Agregar el formulario de selección de artistas -->
+<form method="get" action="{% url 'lista_artistas' %}" style="max-width: 500px;" class="d-flex justify-content-between align-items-center">
+    <div class="form-group" style="margin-bottom: 10px; font-size: 14px; ">
+        <label for="artista" style="font-size: 14px;">Seleccionar Artista:</label>
+        <select name="artista_id" class="custom-select" id="artista" style="font-size: 14px; width: 300px;">
+            <option value="">Mostrar Todos</option>
+            {% for artista in artistas %}
+                <option value="{{ artista.id }}" {% if artista.id == artista_seleccionado.id %}selected{% endif %}>
+                    {{ artista.nombreArtista }} {{ artista.apellidoArtista }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="font-size: 14px; width: 100px;">Filtrar</button>
+</form>
+
+
+
+
+<!-- Área donde se mostrarán las artistas -->
+<div class="row">
+    {% if artista_seleccionado %}
+        <div class="col-md-4 mb-3">
+            <div class="card artistas-card" style="width: 18rem;">
+                {% if artista_seleccionado.imagen %}
+                    <img src="{{ MEDIA_URL }}{{ artista_seleccionado.imagen.url }}" alt="{{ artista_seleccionado.nombreArtista }}" class="card-img-top">
+                {% else %}
+                    <!-- Colocar una imagen pequeña como marcador de posición -->
+                    <img src="{% static 'images/1.jpg' %}" alt="Sin imagen" class="card-img-top image-placeholder">
+                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ artista.nombreArtista }} {{ artista.apellidoArtista }}</h5>
+                    <h5 class="card-title">{{ artista_seleccionado.nombreArtista }} {{ artista_seleccionado.apellidoArtista }}</h5>
                     <p class="card-text">
-                        <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
-                        <strong>Email:</strong> {{ artista.emailArtista }}
+                        <strong>Nacionalidad:</strong> {{ artista_seleccionado.nacionalidadArtista }}<br>
+                        <strong>Email:</strong> {{ artista_seleccionado.emailArtista }}
                     </p>
-                    <a href="{% url 'obras_por_artista' artista.id %}" class="btn btn-primary">Ver obras</a>
+                    <a href="{% url 'obras_por_artista' artista_seleccionado.id %}" class="btn btn-primary">Ver obras</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% for artista in artistas %}
+            <div class="col-md-4 mb-3">
+                <div class="card artistas-card" style="width: 18rem;">
+                    {% if artista.imagen %}
+                        <img src="{{ MEDIA_URL }}{{ artista.imagen.url }}" alt="{{ artista.nombreArtista }}" class="card-img-top">
+                    {% else %}
+                        <!-- Colocar una imagen pequeña como marcador de posición -->
+                        <img src="{% static 'images/1.jpg' %}" alt="Sin imagen" class="card-img-top image-placeholder">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ artista.nombreArtista }} {{ artista.apellidoArtista }}</h5>
+                        <p class="card-text">
+                            <strong>Nacionalidad:</strong> {{ artista.nacionalidadArtista }}<br>
+                            <strong>Email:</strong> {{ artista.emailArtista }}
+                        </p>
+                        <a href="{% url 'obras_por_artista' artista.id %}" class="btn btn-primary">Ver obras</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
-    </ul>
+    {% endif %}
+</div>
 {% endblock contenidoNuevo %}
+<style>
+/* Establecer un borde artístico para las tarjetas */
 
+.artistas-card {
+    border: 2px solid #ccc; /* Borde decorativo */
+    border-radius: 10px; /* Radio de borde para suavizar los bordes */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+    overflow: hidden; /* Para ocultar cualquier contenido fuera del borde */
+}
 
+/* Estilo para el espacio en blanco cuando no hay imagen */
+.image-placeholder {
+    height: 150px;
+    background-color: #eee; /* Color de fondo gris claro como relleno */
+}
+</style>

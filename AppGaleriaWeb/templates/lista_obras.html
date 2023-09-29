@@ -12,6 +12,7 @@
                     <p class="card-text">Artista: {{ obra.autor.nombreArtista }}</p>
                     <p class="card-text">Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
                     <a href="{% url 'detalle_obra' obra.id %}" class="btn btn-primary">Ver Detalles</a>
+                    <a href="/lista_galerias/" class="btn btn-primary">Volver</a>
                 </div>
             </div>
         {% endfor %}
