@@ -1,0 +1,23 @@
+<!--Login-->
+{% load static %}
+<nav class="navbar navbar.light bg-light static-top">
+    <div class="container">
+        <div class="home-button">
+            <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+        </div>
+        <a class="navbar-brand" href="{% url 'lista_galerias' %}">ListaGaleria</a>
+        <a class="navbar-brand" href="#">Artistas</a>
+        {% if user.is_authenticated %}
+            <p> Bienvenido {{ user.username }}</p>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a class="btn btn-primary" href="{% url 'register' %}">Login</a>
+        {% endif %}
+        <!-- Agrega más enlaces del navbar aquí si es necesario -->
+    </div>
+</nav>
+
+
+
+
+

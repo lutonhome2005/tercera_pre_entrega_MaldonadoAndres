@@ -214,3 +214,19 @@ body.registro {
   max-height: 100px; /* Ajustar la altura máxima de la imagen según tus preferencias */
   object-fit: contain; /* Mantener la relación de aspecto y ajustar dentro de la tarjeta */
 }
+
+/* Estilo para el botón de inicio de sesión */
+.login-button {
+  background-color: #007BFF; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  padding: 10px 20px; /* Espaciado del botón */
+  border-radius: 5px; /* Bordes redondeados */
+  text-decoration: none; /* Sin subrayado */
+  font-weight: bold; /* Texto en negrita */
+}
+
+/* Cambia el color del botón al pasar el mouse por encima */
+.login-button:hover {
+  background-color: #0056b3;
+}

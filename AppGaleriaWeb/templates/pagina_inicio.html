@@ -2,6 +2,11 @@
 <html>
 <head>
     {% load static %}
+    <li class="nav-item text-center list-group-item float-left">
+        <a class="btn btn-primary" href='/login_view'>Login</a>
+    </li>
+
+    
     <title>Arte - Diseño</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +45,24 @@
   </style>
 </head>
 <body>
+    <nav class="navbar navbar.light bg-light static-top">
+        <div class="container">
+            <div class="home-button">
+                <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+            </div>
+            <a class="navbar-brand" href="{% url 'lista_galerias' %}">ListaGaleria</a>
+            <a class="navbar-brand" href="#">Artistas</a>
+            {% if user.is_authenticated %}
+                <p> Bienvenido {{ user.username }}</p>
+                <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'register' %}">Login</a>
+            {% endif %}
+            <!-- Agrega más enlaces del navbar aquí si es necesario -->
+        </div>
+    </nav>
+
+
 <div class="w3-row">
     <div class="w3-half"><h1 class="text-left"> <br>Arte -  Diseño</h1></div>
     <div class="w3-half"><h2 class="text-right align-self-center">CODERHOUSE<br><b>PROYECTO WEB</b></h2></div>
@@ -62,6 +85,12 @@
                     <li class="nav-item text-center list-group-item">
                         <!--<a class="nav-link" href='/formularioAltaArtista'>Registrarse</a>-->
                         <a class="nav-link" href='/registro'>Registrarse</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href= '/login_view'>Login</a>
+                    </li>
+                    <li class="nav-item text-center list-group-item">
+                        <a class="nav-link" href= '/register'>Alta de Usuario</a>
                     </li>
                     <li class="nav-item text-center list-group-item">
                         <a class="nav-link" href='/contactos'>Contactos</a>
@@ -105,5 +134,6 @@
         {% endblock contenidoNuevo %}
     </div>
 </div>
+
 </body>
 </html>

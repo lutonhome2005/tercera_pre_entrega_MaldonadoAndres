@@ -4,6 +4,8 @@ from .models import *
 from django.urls import path
 from AppGaleriaWeb import views
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 
 
 
@@ -302,3 +304,50 @@ def obras_por_artista(request, artista_id):
     else:
         mensaje = f"{artista.nombreArtista} {artista.apellidoArtista} no ha registrado ninguna obra."
         return render(request, 'obras_por_artista.html', {'mensaje': mensaje})
+
+#login Artista
+
+def login_view (request):
+    
+    if request.method == 'POST':
+        
+        miFormulario = AuthenticationForm (request, data=request.POST)
+        
+        if miFormulario.is_valid():
+            data = miFormulario.cleaned_data
+            usuario = data["username"]
+            psw = data["password"]
+            
+            user = authenticate(username=usuario,password=psw)
+            
+            if user:
+                
+                login(request,user)
+                return render (request,'registrarse.html',{"mensaje": f'Bienvenido {usuario}' })
+            
+          
+        return render (request,'registrarse.html',{"mensaje": f'Datos incorrectos'})
+    
+    else:
+        miFormulario = AuthenticationForm(request)          
+        return render(request, 'login.html', {"miFormulario": miFormulario})
+
+#Registro de usuarios
+def register(request):
+    
+    if request.method == 'POST':
+            
+            miFormulario = UserCreationForm (request.POST)
+            
+            if miFormulario.is_valid():
+                
+                data = miFormulario.cleaned_data
+                usuario = data["username"]
+                miFormulario.save()
+                return render (request,'registrarse.html',{"mensaje": f'Usuario {usuario} creado con exito!!!!' })
+            
+               
+            return render (request,'registrarse.html',{"mensaje": f'Formulario Inválido' })
+    else:
+        miFormulario = UserCreationForm()          
+        return render(request, 'alta_usuario.html', {"miFormulario": miFormulario})

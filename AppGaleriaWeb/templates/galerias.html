@@ -1,19 +1,22 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
     <h1 class="titulo-centrado">Listado de Galerias</h1>
-    <ul class="lista-Obras">
+    <div class="row">
         {% for galeria_info_item in galerias_info %}
-            <div class="card" style="width: 18rem;">
-                <img src="https://www.wallpaperflare.com/static/829/227/702/cat-artwork-eyes-deep-art-wallpaper.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{galeria_info_item.nombre_galeria}}</h5>
-                    
-                    <p class="card-text">ID de la galería: {{ galeria_info_item.id_galeria }}</p>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="{% url 'lista_obras_galeria' galeria_info_item.id_galeria %}" class="btn btn-primary">Ver Obras</a>
-                    
+            <div class="col-md-4 mb-3">
+                <div class="card artistas-card" style="width: 18rem;">
+                    <img src="https://www.wallpaperflare.com/static/829/227/702/cat-artwork-eyes-deep-art-wallpaper.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{galeria_info_item.nombre_galeria}}</h5>
+                        
+                        <p class="card-text">ID de la galería: {{ galeria_info_item.id_galeria }}</p>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="{% url 'lista_obras_galeria' galeria_info_item.id_galeria %}" class="btn btn-primary">Ver Obras</a>
+                        
+                    </div>
                 </div>
             </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock contenidoNuevo %}
+

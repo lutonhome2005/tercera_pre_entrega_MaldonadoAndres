@@ -4,6 +4,8 @@ from AppGaleriaWeb.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from django.contrib.auth.views import LogoutView
+
 
 
 urlpatterns = [
@@ -28,7 +30,9 @@ urlpatterns = [
     path('lista_obras_galeria/<int:galeria_id>/', views.lista_obras_galeria, name='lista_obras_galeria'),
     path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('obras_por_artista/<int:artista_id>/', views.obras_por_artista, name='obras_por_artista'),
-    
+    path('login_view/', login_view, name='login_view'),
+    path('register/', register, name='register'),
+    path('logout/', LogoutView.as_view (template_name="logout.html"), name='logout'),
 ]   
 
 
