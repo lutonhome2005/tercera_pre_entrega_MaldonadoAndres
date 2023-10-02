@@ -11,9 +11,10 @@
             <p> Bienvenido {{ user.username }}</p>
             <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
         {% else %}
-            <a class="btn btn-primary" href="{% url 'register' %}">Login</a>
+            <a class="btn btn-primary" href="{% url 'login_view' %}">Login</a>
+            <a class="btn btn-primary" href="{% url 'register' %}">Registar</a>
         {% endif %}
-        <!-- Agrega más enlaces del navbar aquí si es necesario -->
+        
     </div>
 </nav>
 
