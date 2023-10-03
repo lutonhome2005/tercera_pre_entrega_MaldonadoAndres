@@ -1,14 +1,20 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
 {% load static %}
-    <h1 class="titulo-centrado">Registrar</h1>
-    <div class="circulos">
-        <a href="{% url 'formularioAltaArtista' %}" class="circulo artista">
-            <p>Artistas</p>
-        </a>
-        <a href="{% url 'formularioAltaUsuario' %}" class="circulo usuario">
-            <p>Usuarios</p>
-        </a>
-    </div>
-{% endblock contenidoNuevo %}
+    {% if user.is_authenticated %}
+        <h1 class="titulo-centrado">Registrar</h1>
+        <div class="circulos">
+            <a href="{% url 'formularioAltaArtista' %}" class="circulo artista">
+                <p>Artistas</p>
+            </a>
+            <a href="{% url 'formularioAltaObraArte' %}" class="circulo artista">
+                <p>Obras</p>
+            </a>
+        </div>
+    {% else %}
+        <h1 class="titulo-centrado">Acceso denegado!!!!</h1>
+        <br>
+        <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
+    {% endif %}
 
+{% endblock contenidoNuevo %}

@@ -1,11 +1,14 @@
 from django.shortcuts import render , get_object_or_404
 from django.http import HttpResponse
 from .models import * 
-from django.urls import path
+from django.urls import path,reverse
 from AppGaleriaWeb import views
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, get_object_or_404, reverse
+from django.core.paginator import Paginator
+
 
 
 
@@ -31,6 +34,11 @@ def registrarse(request):
 #Creamos la vista de Registro de usuarios
 def registrar (request):
     return render(request,'registro.html')
+
+#Creamos la vista de Aviso de Registro
+def aviso_registroArtista (request):
+    return render(request,'aviso_registroArtista.html')
+
 
 
 #Creamos la vista de contactos
@@ -285,14 +293,21 @@ def buscar_artista(request):
     })
 
 def lista_obras_galeria(request, galeria_id):
-    #print("Valor de galeria_id:", galeria_id)  # Imprime 
     galeria = get_object_or_404(Galeria, pk=galeria_id)
     obras = galeria.obras.all()
-    return render(request, 'lista_obras.html', {'obras': obras})
+    return render(request, 'lista_obras.html', {'galeria': galeria, 'obras': obras})
+
 
 def detalle_obra(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
-    return render(request, 'detalle_obra.html', {'obra': obra})
+    
+    # Obtener el artista_id de la obra
+    artista_id = obra.autor.id
+    
+    # Generar la URL inversa para 'obras_por_artista' con el artista_id
+    previous_url = reverse('obras_por_artista', kwargs={'artista_id': artista_id})
+    
+    return render(request, 'detalle_obra.html', {'obra': obra, 'previous_url': previous_url})
 
 
 def obras_por_artista(request, artista_id):
