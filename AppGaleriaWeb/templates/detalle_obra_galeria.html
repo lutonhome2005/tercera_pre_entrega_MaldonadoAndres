@@ -1,0 +1,30 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+<div class="menu">
+  <div class="center-content">
+    <h1>Detalles de la Obra</h1>
+    <a href="{{ previous_url }}" class="btn btn-primary">Volver</a>
+    <h2>{{ obra.titulo }}</h2>
+    <p>{{ obra.descripcion }}</p>
+    <p>Artista: {{ obra.autor.nombreArtista }}</p>
+    <p>Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
+    <p>Fecha de Creación: {{ obra.fechaCreacion }}</p>
+    {% if obra.vendido %}
+      <p>Estado: Vendido</p>
+    {% endif %}
+    <img src="{{ obra.imagen.url }}" alt="{{ obra.titulo }}" />
+  </div>
+</div>
+<style>
+.menu {
+  text-align: center; /* Centrar contenido horizontalmente */
+}
+
+.center-content {
+  background-color: #fff; /* Cambia el color de fondo del contenido */
+  text-align: center; /* Centra el contenido horizontalmente */
+  padding: 20px; /* Agrega espaciado alrededor del contenido */
+}
+
+</style>
+{% endblock contenidoNuevo %}

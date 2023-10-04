@@ -28,11 +28,9 @@ urlpatterns = [
     path('lista_artistas/', lista_artistas, name='lista_artistas'),# Nueva URL para listar los artistas
     path('lista_galerias/', lista_galerias, name='lista_galerias'),# Nueva URL para listar los galerias
     path('buscar_artista/', buscar_artista, name='buscar_artista'),# Nueva URL para Buscar los artistas
-    #path('lista_obras_galeria/<int:artista_id>/', views.lista_obras_galeria, name='lista_obras_galeria'),
-    #path('detalle_obra/<int:artista_id>/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('lista_obras_galeria/<int:galeria_id>/', views.lista_obras_galeria, name='lista_obras_galeria'),
-    #path('detalle_obra/<int:artista_id>/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
-     path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
+    path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
+    path('detalle_obra_galeria/<int:obra_id>/', views.detalle_obra_galeria, name='detalle_obra_galeria'),
     path('obras_por_artista/<int:artista_id>/', views.obras_por_artista, name='obras_por_artista'),
     path('login_view/', login_view, name='login_view'),
     path('register/', register, name='register'),
@@ -43,7 +41,5 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
 
 

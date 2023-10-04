@@ -230,25 +230,3 @@ body.registro {
 .login-button:hover {
   background-color: #0056b3;
 }
-
-
-
-/* Estilo para el navbar */
-.menu {
-  background-color: #519090;
-}
-
-/* Estilo para la barra de navegación */
-.navbar-nav {
-  display: flex;
-  align-items: center; /* Centrar verticalmente */
-  justify-content: center; /* Centrar horizontalmente */
-  height: 100%; /* Altura del navbar */
-}
-
-/* Estilo para los elementos del navbar */
-.navbar-nav a {
-  color: ghostwhite!important;
-  font-size: 20px;
-  padding: 0 15px; /* Ajusta el espacio entre los elementos */
-}

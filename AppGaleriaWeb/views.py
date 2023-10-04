@@ -1,14 +1,11 @@
 from django.shortcuts import render , get_object_or_404
 from django.http import HttpResponse
 from .models import * 
-from django.urls import path,reverse
+from django.urls import path, reverse
 from AppGaleriaWeb import views
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, get_object_or_404, reverse
-from django.core.paginator import Paginator
-
 
 
 
@@ -40,7 +37,6 @@ def aviso_registroArtista (request):
     return render(request,'aviso_registroArtista.html')
 
 
-
 #Creamos la vista de contactos
 def contactos(request):
     return render(request,'contactos.html')
@@ -49,6 +45,8 @@ def contactos(request):
     
 #    return render(request,'formularioAltaArtista.html')
 
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 def formularioAltaArtista(request):
     
     if request.method == 'POST':
@@ -58,13 +56,15 @@ def formularioAltaArtista(request):
         nacionalidad_artista = request.POST['nacionalidadArtista']
         email_artista = request.POST['emailArtista']
         tipo = request.POST['tipo']  # Obtener el tipo de usuario
+        imagen = request.FILES.get('imagen')  # Obtener el archivo de imagen
         #Creo la instancia del modelo Artista y la guarda en BD
         
         artista = Artista(
                 nombreArtista=nombre_artista,
                 apellidoArtista=apellido_artista,
                 nacionalidadArtista=nacionalidad_artista,
-                emailArtista=email_artista
+                emailArtista=email_artista,
+                imagen = imagen # Asignar la imagen al campo 'imagen'
             )
         artista.save()
             
@@ -293,10 +293,10 @@ def buscar_artista(request):
     })
 
 def lista_obras_galeria(request, galeria_id):
+    #print("Valor de galeria_id:", galeria_id)  # Imprime 
     galeria = get_object_or_404(Galeria, pk=galeria_id)
     obras = galeria.obras.all()
-    return render(request, 'lista_obras.html', {'galeria': galeria, 'obras': obras})
-
+    return render(request, 'lista_obras_galeria.html', {'obras': obras})
 
 def detalle_obra(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
@@ -310,6 +310,21 @@ def detalle_obra(request, obra_id):
     return render(request, 'detalle_obra.html', {'obra': obra, 'previous_url': previous_url})
 
 
+def detalle_obra_galeria(request, obra_id):
+    obra = get_object_or_404(ObraArte, pk=obra_id)
+    
+    # Obtener la galería de la obra (si existe) a través del conjunto relacionado 'galerias'
+    galeria = obra.galerias.first()  # Cambia 'first()' por 'get()' si solo debe pertenecer a una galería
+    
+    # Generar la URL inversa para 'lista_obras_galeria' con el galeria_id
+    previous_url = reverse('lista_obras_galeria', kwargs={'galeria_id': galeria.id if galeria else None})
+    
+    return render(request, 'detalle_obra_galeria.html', {'galeria': galeria, 'obra': obra, 'previous_url': previous_url})
+
+
+
+
+
 def obras_por_artista(request, artista_id):
     artista = get_object_or_404(Artista, pk=artista_id)
     obras = ObraArte.objects.filter(autor=artista)
@@ -318,7 +333,7 @@ def obras_por_artista(request, artista_id):
         return render(request, 'obras_por_artista.html', {'artista': artista, 'obras': obras})
     else:
         mensaje = f"{artista.nombreArtista} {artista.apellidoArtista} no ha registrado ninguna obra."
-        return render(request, 'obras_por_artista.html', {'mensaje': mensaje})
+        return render(request, 'sin_obras.html', {'mensaje': mensaje})
 
 #login Artista
 
@@ -341,7 +356,7 @@ def login_view (request):
                 return render (request,'registrarse.html',{"mensaje": f'Bienvenido {usuario}' })
             
           
-        return render (request,'registrarse.html',{"mensaje": f'Datos incorrectos'})
+        return render (request,'registrarse.html',{"mensaje": f'Datos incorrectos!!!'})
     
     else:
         miFormulario = AuthenticationForm(request)          

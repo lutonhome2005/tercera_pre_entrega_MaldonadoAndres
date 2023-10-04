@@ -23,9 +23,10 @@
 
 
 
-
 <!-- Área donde se mostrarán las artistas -->
+{% load static %}
 <div class="row">
+  
     {% if artista_seleccionado %}
         <div class="col-md-4 mb-3">
             <div class="card artistas-card" style="width: 18rem;">
@@ -69,6 +70,7 @@
     {% endif %}
 </div>
 {% endblock contenidoNuevo %}
+
 <style>
 /* Establecer un borde artístico para las tarjetas */
 
