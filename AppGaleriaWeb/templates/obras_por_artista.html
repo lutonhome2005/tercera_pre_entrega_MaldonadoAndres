@@ -14,6 +14,8 @@
                         <p class="card-text">{{ obra.descripcion }}</p>
                         <p class="card-text">Precio: {% if obra.precio %}${{ obra.precio }}{% else %}No disponible{% endif %}</p>
                         <a href="{% url 'detalle_obra' obra.id %}" class="btn btn-primary">Ver Detalles</a>
+                        <!-- Agrega el botón "Consultas" con los datos del artista y la obra como parámetros GET -->
+                        <a href="{% url 'consulta_artista' %}?artista_id={{ artista.id }}&obra_id={{ obra.id }}" class="btn btn-primary">Consultas</a>
                         <a href="/lista_artistas/" class="btn btn-primary">Volver</a>
                     </div>
                 </div>

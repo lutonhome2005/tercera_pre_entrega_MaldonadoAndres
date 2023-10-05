@@ -1,4 +1,4 @@
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404,redirect
 from django.http import HttpResponse
 from .models import * 
 from django.urls import path, reverse
@@ -69,7 +69,7 @@ def formularioAltaArtista(request):
         artista.save()
             
         #form = formularioAltaArtista(request.POST)
-        return render(request, 'index.html')  # si todo salio bien envia a págian de inicio
+        return render(request, 'registro_exitoso_artista.html')  # si todo salio bien envia a págian de inicio
     
     else:
         # es una solicitud GET, mostrar de nuevo el formulario
@@ -77,10 +77,10 @@ def formularioAltaArtista(request):
         return render(request, 'formularioAltaArtista.html')
 
 
-class FormularioAltaArtista(forms.ModelForm):
-    class Meta:
-        model = Artista
-        fields = ['nombreArtista', 'apellidoArtista', 'nacionalidadArtista', 'emailArtista', 'imagen']  
+#class FormularioAltaArtista(forms.ModelForm):
+#    class Meta:
+#        model = Artista
+#        fields = ['nombreArtista', 'apellidoArtista', 'nacionalidadArtista', 'emailArtista', 'imagen']  
 
 #Creo la funcion para dar de alta los usuarios
 def formularioAltaUsuario(request):
@@ -321,8 +321,20 @@ def detalle_obra_galeria(request, obra_id):
     
     return render(request, 'detalle_obra_galeria.html', {'galeria': galeria, 'obra': obra, 'previous_url': previous_url})
 
+#Consulta Artista
+def consulta_artista(request):
+    artista_id = request.GET.get('artista_id')
+    obra_id = request.GET.get('obra_id')
+    
+    artista = get_object_or_404(Artista, pk=artista_id)
+    obra = get_object_or_404(ObraArte, pk=obra_id) if obra_id else None
+    
+    return render(request, 'consulta_artista.html', {'artista': artista, 'obra': obra})
 
 
+def accion_consulta(request, artista_id, obra_id):
+    # Redirigir al usuario al formulario de consulta
+    return redirect('consulta_artista')
 
 
 def obras_por_artista(request, artista_id):

@@ -32,6 +32,7 @@ urlpatterns = [
     path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('detalle_obra_galeria/<int:obra_id>/', views.detalle_obra_galeria, name='detalle_obra_galeria'),
     path('obras_por_artista/<int:artista_id>/', views.obras_por_artista, name='obras_por_artista'),
+    path('consulta_artista/', views.consulta_artista, name='consulta_artista'),
     path('login_view/', login_view, name='login_view'),
     path('register/', register, name='register'),
     path('logout/', LogoutView.as_view (template_name="logout.html"), name='logout'),

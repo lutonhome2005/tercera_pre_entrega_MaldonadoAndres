@@ -1,4 +1,3 @@
-
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
 {% load static %}
@@ -13,9 +12,30 @@
             </a>
         </div>
     {% else %}
-        <h1 class="titulo-centrado">Acceso denegado!!!!</h1>
-        <br>
-        <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
+        <div class="menu">
+            <div class="center-content">    
+                <img src="{% static 'images/accesoDenegado_.png' %}" alt="Acceso Denegado" >
+                <br>
+                <br>
+                <br>
+                <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
+                
+            </div>
+        </div>
     {% endif %}
-
+<style>
+    .menu {
+        text-align: center; /* Centrar contenido horizontalmente */
+    }
+    
+    .center-content {
+        background-color: #fff; /* Cambia el color de fondo del contenido */
+        text-align: center; /* Centra el contenido horizontalmente */
+        padding: 20px; /* Agrega espaciado alrededor del contenido */
+    }
+    
+    </style>
+    
 {% endblock contenidoNuevo %}
+
+

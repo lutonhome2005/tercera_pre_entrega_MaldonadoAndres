@@ -1,0 +1,24 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+    <h1 class="titulo-centrado">Consultas</h1>
+    <form method="post" action="{% url 'consulta_artista' %}">
+        {% csrf_token %}
+        <!-- Detalles del artista -->
+        <p><strong>Artista:</strong> {{ artista.nombreArtista }} {{ artista.apellidoArtista }}</p>
+        <!-- Detalles de la obra (si está disponible) -->
+        {% if obra %}
+            <p><strong>Obra:</strong> {{ obra.titulo }}</p>
+        {% endif %}
+        <!-- Campos de consulta -->
+        <div class="form-group">
+            <label for="nombreCompleto">Nombre Completo</label>
+            <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" required>
+        </div>
+        <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje"
+{% endblock contenidoNuevo %}
