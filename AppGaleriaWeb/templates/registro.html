@@ -1,41 +1,54 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
 {% load static %}
+<h1 class="titulo-centrado titulo-artistico">Registrar</h1>
+<div class="row">
     {% if user.is_authenticated %}
-        <h1 class="titulo-centrado">Registrar</h1>
-        <div class="circulos">
-            <a href="{% url 'formularioAltaArtista' %}" class="circulo artista">
-                <p>Artistas</p>
-            </a>
-            <a href="{% url 'formularioAltaObraArte' %}" class="circulo artista">
-                <p>Obras</p>
+        <div class="col-md-3 mx-auto">
+            <a href="{% url 'formularioAltaArtista' %}" class="text-decoration-none">
+                <div class="card mb-3">
+                    <img src="{% static 'images/artista1.jpg' %}" alt="Artistas" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">Artistas</h5>
+                        <p class="card-text">Regístrese como artista</p>
+                    </div>
+                </div>
             </a>
         </div>
+        <div class="col-md-3 mx-auto">
+            <a href="{% url 'formularioAltaObraArte' %}" class="text-decoration-none">
+                <div class="card mb-3">
+                    <img src="{% static 'images/obra_de_arte.jpg' %}" alt="Obras" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">Obras</h5>
+                        <p class="card-text">Registre sus obras de arte</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+</div>
     {% else %}
-        <div class="menu">
-            <div class="center-content">    
-                <img src="{% static 'images/accesoDenegado_.png' %}" alt="Acceso Denegado" >
-                <br>
-                <br>
-                <br>
-                <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
-                
-            </div>
+    <div class="menu">
+        <div class="center-content text-center"> <!-- Agrega la clase 'text-center' para centrar el contenido horizontalmente -->
+            <img src="{% static 'images/Stop.jpg' %}" alt="Acceso Denegado" style="width: 30%;" class="mx-auto d-block"> <!-- Usa las clases 'mx-auto' y 'd-block' para centrar la imagen horizontalmente -->
+            <br>
+            <br>
+            <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
         </div>
-    {% endif %}
+    </div>    {% endif %}
+
 <style>
-    .menu {
-        text-align: center; /* Centrar contenido horizontalmente */
+    .titulo-artistico {
+        font-family: 'Your-Font-Name', cursive; /* Reemplaza 'Your-Font-Name' con la fuente que desees */
+        font-size: 36px; /* Tamaño de fuente personalizado */
+        color: #ff5733; /* Color de fuente personalizado */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto personalizada */
     }
-    
     .center-content {
-        background-color: #fff; /* Cambia el color de fondo del contenido */
+        background-color: white; /* Establece el fondo en blanco */
         text-align: center; /* Centra el contenido horizontalmente */
         padding: 20px; /* Agrega espaciado alrededor del contenido */
     }
-    
-    </style>
-    
+</style>
+
 {% endblock contenidoNuevo %}
-
-

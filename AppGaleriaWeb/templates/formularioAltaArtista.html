@@ -1,39 +1,57 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
+<div class="container">
     <h1 class="titulo-centrado">Alta de Artistas</h1>
-    <form action="{% url 'formularioAltaArtista' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
-        
-        <label for="id_nombreArtista">Nombre del Artista:</label>
-        <input type="text" id="id_nombreArtista" name="nombreArtista" maxlength="50" required><br>
-        
-        <label for="id_apellidoArtista">Apellido del Artista:</label>
-        <input type="text" id="id_apellidoArtista" name="apellidoArtista" maxlength="60" required><br>
-        
-        <label for="id_nacionalidadArtista">Nacionalidad del Artista:</label>
-        <input type="text" id="id_nacionalidadArtista" name="nacionalidadArtista" maxlength="50" required><br>
-        
-        <label for="id_emailArtista">Email del Artista:</label>
-        <input type="email" id="id_emailArtista" name="emailArtista" required><br>
-        
-        <label for="id_imagen">Imagen del Artista:</label>
-        <input type="file" id="id_imagen" name="imagen" accept="image/*" required><br>
-        
-        <label for="id_tipo">Tipo de usuario:</label>
-        <select id="id_tipo" name="tipo" required>
-            <option value="comun">Usuario Común</option>
-            <option value="artista">Artista</option>
-        </select><br>
-        <button type="submit">Guardar</button>
-        <!-- Botón "Cancelar"  -->
-        
-        <button type="button" id="botonCancelar">Cancelar</button>
-        <script>
-            // Evitar que se envíe el formulario cuando se hace clic en "Cancelar"
-            document.getElementById('botonCancelar').addEventListener('click', function(e) {
-                e.preventDefault();
-                // Se redirige a la página de inicio
-                window.location.href = "{% url 'index' %}";
-            });
-        </script>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="{% url 'formularioAltaArtista' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_nombreArtista">Nombre del Artista:</label>
+                    <input type="text" class="form-control" id="id_nombreArtista" name="nombreArtista" maxlength="50" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_apellidoArtista">Apellido del Artista:</label>
+                    <input type="text" class="form-control" id="id_apellidoArtista" name="apellidoArtista" maxlength="60" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_nacionalidadArtista">Nacionalidad del Artista:</label>
+                    <input type="text" class="form-control" id="id_nacionalidadArtista" name="nacionalidadArtista" maxlength="50" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_emailArtista">Email del Artista:</label>
+                    <input type="email" class="form-control" id="id_emailArtista" name="emailArtista" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_telefono">Teléfono del Artista:</label>
+                    <input type="tel" class="form-control" id="id_telefono" name="telefonoArtista" pattern="[0-9]+" required>
+                    <small class="form-text text-muted">Ingrese solo números.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_imagen">Imagen del Artista:</label>
+                    <input type="file" class="form-control-file" id="id_imagen" name="imagen" accept="image/*" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" id="botonCancelar" class="btn btn-secondary">Cancelar</button>
+                </div>
+                
+                <!-- Script para redirigir al hacer clic en "Cancelar" -->
+                <script>
+                    document.getElementById('botonCancelar').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.href = "{% url 'index' %}";
+                    });
+                </script>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock contenidoNuevo %}

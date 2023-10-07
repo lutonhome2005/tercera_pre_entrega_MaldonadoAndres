@@ -1,25 +1,40 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
+<div class="container mt-4">
     <h1 class="titulo-centrado">Alta de Galería</h1>
-    <form action="{% url 'formularioAltaGaleria' %}" method="post">
+    <form action="{% url 'formularioAltaGaleria' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         
-        <label for="id_nombre">Nombre de la Galería:</label>
-        <input type="text" id="id_nombre" name="nombre" maxlength="50" required><br>
+        <div class="form-group">
+            <label for="id_nombre">Nombre de la Galería:</label>
+            <input type="text" id="id_nombre" name="nombre" maxlength="50" required class="form-control">
+        </div>
         
-        <label for="id_descripcion">Descripción de la Galería:</label>
-        <textarea id="id_descripcion" name="descripcion" rows="4" required></textarea><br>
+        <div class="form-group">
+            <label for="id_descripcion">Descripción de la Galería:</label>
+            <textarea id="id_descripcion" name="descripcion" rows="4" required class="form-control"></textarea>
+        </div>
         
-        <label for="id_fechaCreacion">Fecha de Creación:</label>
-        <input type="date" id="id_fechaCreacion" name="fechaCreacion" required><br>
+        <div class="form-group">
+            <label for="id_fechaCreacion">Fecha de Creación:</label>
+            <input type="date" id="id_fechaCreacion" name="fechaCreacion" required class="form-control">
+        </div>
         
-        <label for="id_obras">Obras de Arte:</label>
-        <select id="id_obras" name="obras" multiple>
-            {% for obra in obras_de_arte %}
-                <option value="{{ obra.id }}">{{ obra.titulo }}</option>
-            {% endfor %}
-        </select><br>
+        <div class="form-group">
+            <label for="id_imagen">Imagen:</label>
+            <input type="file" id="id_imagen" name="imagen" accept="image/*" required class="form-control-file">
+        </div>
         
-        <button type="submit">Guardar</button>
+        <div class="form-group">
+            <label for="id_obras">Obras de Arte:</label>
+            <select id="id_obras" name="obras" multiple class="form-control">
+                {% for obra in obras_de_arte %}
+                    <option value="{{ obra.id }}">{{ obra.titulo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
+</div>
 {% endblock contenidoNuevo %}

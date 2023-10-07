@@ -41,9 +41,11 @@ def aviso_registroArtista (request):
 def contactos(request):
     return render(request,'contactos.html')
 
-#def formularioAltaArtista(request):
-    
-#    return render(request,'formularioAltaArtista.html')
+def nuestros_servicios(request):
+     return render(request, 'nuestros_servicios.html')
+
+def sobre_nosotros(request):
+    return render (request, 'sobre_nosotros.html')
 
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -55,7 +57,7 @@ def formularioAltaArtista(request):
         apellido_artista = request.POST['apellidoArtista']
         nacionalidad_artista = request.POST['nacionalidadArtista']
         email_artista = request.POST['emailArtista']
-        tipo = request.POST['tipo']  # Obtener el tipo de usuario
+        #tipo = request.POST['tipo']  # Obtener el tipo de usuario
         imagen = request.FILES.get('imagen')  # Obtener el archivo de imagen
         #Creo la instancia del modelo Artista y la guarda en BD
         
@@ -76,11 +78,6 @@ def formularioAltaArtista(request):
         #return render(request,'formularioAltaArtista.html')
         return render(request, 'formularioAltaArtista.html')
 
-
-#class FormularioAltaArtista(forms.ModelForm):
-#    class Meta:
-#        model = Artista
-#        fields = ['nombreArtista', 'apellidoArtista', 'nacionalidadArtista', 'emailArtista', 'imagen']  
 
 #Creo la funcion para dar de alta los usuarios
 def formularioAltaUsuario(request):
@@ -160,12 +157,15 @@ def formularioAltaGaleria(request):
         descripcion = request.POST['descripcion']
         fecha_creacion = request.POST['fechaCreacion']
         obras_seleccionadas = request.POST.getlist('obras')
+        
+        imagen = request.FILES.get('imagen')
 
         # Crea la instancia de Galeria
         galeria = Galeria(
             nombre=nombre,
             descripcion=descripcion,
-            fechaCreacion=fecha_creacion
+            fechaCreacion=fecha_creacion,
+            imagen = imagen,
         )
         galeria.save()
 
@@ -209,15 +209,6 @@ def formularioAltaCarrito(request):
 
 #Listadossss
 
-##--------------------------------------------------------------------------
-# #Listados de Artistas
-#def lista_artistas(request):
-#    artistas = Artista.objects.all()
-#    return render(request, 'artistas.html', {'artistas': artistas})
-
-#------------------------------------------
-
-
 def lista_artistas(request):
     artistas = Artista.objects.all()
     artista_seleccionado = None
@@ -239,21 +230,34 @@ def lista_artistas(request):
 
 #Listado de Galerias
 
-
 def lista_galerias(request):
     galerias = Galeria.objects.all()
     
-    # Crear una lista de diccionarios para almacenar obras y artistas de cada galería
+    # Crear una lista de diccionarios para almacenar obras, artistas, imágenes y descripciones de cada galería
     galerias_info = []
     
     for galeria in galerias:
         obras = galeria.obras.all()
         obras_info = [{'nombre_obra': obra.titulo, 'nombre_artista': obra.autor.nombreArtista} for obra in obras]
-        galeria_info = {'id_galeria': galeria.pk, 'nombre_galeria': galeria.nombre, 'obras_info': obras_info}
+        
+        # Obtén la URL de la imagen de la galería o una imagen por defecto si no hay imagen
+        if galeria.imagen:
+            imagen_galeria_url = galeria.imagen.url
+        else:
+            imagen_galeria_url = '{% static "images/pinceles-paleta.jpg" %}'  # Coloca aquí la URL de la imagen estática por defecto
+        
+        galeria_info = {
+            'id_galeria': galeria.pk,
+            'nombre_galeria': galeria.nombre,
+            'obras_info': obras_info,
+            'imagen_galeria': imagen_galeria_url,  # Agrega la URL de la imagen de la galería
+            'descripcion_galeria': galeria.descripcion  # Agrega la descripción de la galería
+        }
         
         galerias_info.append(galeria_info)
     
     return render(request, 'galerias.html', {'galerias_info': galerias_info})
+
 
 
 #Busqueda de artistas

@@ -8,8 +8,7 @@
         
         <!-- Si el usuario está autenticado como superusuario -->
         {% if user.is_authenticated and user.is_superuser %}
-            <a class="navbar-brand" href="{% url 'lista_galerias' %}">ListaGaleria</a>
-            <a class="navbar-brand" href="#">Artistas1</a>
+            <a class="navbar-brand" href="{% url 'admin:index' %}">Administrador</a>
         {% endif %}
         
         <div class="navbar-brand ml-auto"> <!-- Mueve los botones a la derecha -->
@@ -25,4 +24,3 @@
         </div>
     </div>
 </nav>
-

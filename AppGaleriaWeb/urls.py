@@ -9,15 +9,15 @@ from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
-   # path('admin/', admin.site.urls),
-    #path('vicuDesign/', include('AppGaleriaWeb.urls')),
-    #path('GaleriaVicuDesign/', include('AppGaleriaWeb.urls')),
+    #path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('index/', index, name='index'),
     path('artistas/',artistas),
     path('galerias/', galerias),
     path('registrarse/',registrarse),
     path('contactos/',contactos),
+    path('nuestros_servicios/', views.nuestros_servicios, name='nuestros_servicios'),
+    path('sobre_nosotros/', sobre_nosotros, name='sobre_nosotros'),
     path('formularioAltaArtista/', formularioAltaArtista, name='formularioAltaArtista'),
     path('registro/', registrar, name='registro'),
     path('aviso_registroArtista/', aviso_registroArtista, name='aviso_registroArtista'),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('lista_artistas/', lista_artistas, name='lista_artistas'),# Nueva URL para listar los artistas
     path('lista_galerias/', lista_galerias, name='lista_galerias'),# Nueva URL para listar los galerias
     path('buscar_artista/', buscar_artista, name='buscar_artista'),# Nueva URL para Buscar los artistas
+    path('consulta_artista/<int:artista_id>/', consulta_artista, name='consulta_artista'),
     path('lista_obras_galeria/<int:galeria_id>/', views.lista_obras_galeria, name='lista_obras_galeria'),
     path('detalle_obra/<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('detalle_obra_galeria/<int:obra_id>/', views.detalle_obra_galeria, name='detalle_obra_galeria'),
@@ -42,5 +43,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 

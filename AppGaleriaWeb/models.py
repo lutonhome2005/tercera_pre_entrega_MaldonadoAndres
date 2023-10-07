@@ -5,7 +5,8 @@ class Galeria(models.Model):
     nombre = models.CharField(max_length= 50)
     descripcion = models.TextField()
     fechaCreacion = models.DateField()
-    obras = models.ManyToManyField('ObraArte',related_name='galerias')
+    obras = models.ManyToManyField('ObraArte', related_name='galerias', blank=True)
+    imagen = models.ImageField(upload_to='galerias/', null=True, blank=True)
     
     def __str__(self):
         return self.nombre
@@ -16,6 +17,7 @@ class Usuario (models.Model):
     edadUsuario = models.IntegerField()
     emailUsuario = models.EmailField(unique=True)
     carrito = models.OneToOneField('Carrito', on_delete=models.CASCADE, null=True, blank=True)
+    
     
     def __str__(self):
         return self.nombreUsuario
