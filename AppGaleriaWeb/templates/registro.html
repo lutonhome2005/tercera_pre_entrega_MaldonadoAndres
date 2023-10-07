@@ -18,7 +18,7 @@
         <div class="col-md-3 mx-auto">
             <a href="{% url 'formularioAltaObraArte' %}" class="text-decoration-none">
                 <div class="card mb-3">
-                    <img src="{% static 'images/obra_de_arte.jpg' %}" alt="Obras" class="card-img-top img-fluid">
+                    <img src="{% static 'images/obras_de_arte.jpg' %}" alt="Obras" class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">Obras</h5>
                         <p class="card-text">Registre sus obras de arte</p>
@@ -29,8 +29,8 @@
 </div>
     {% else %}
     <div class="menu">
-        <div class="center-content text-center"> <!-- Agrega la clase 'text-center' para centrar el contenido horizontalmente -->
-            <img src="{% static 'images/Stop.jpg' %}" alt="Acceso Denegado" style="width: 30%;" class="mx-auto d-block"> <!-- Usa las clases 'mx-auto' y 'd-block' para centrar la imagen horizontalmente -->
+        <div class="center-content text-center"> 
+            <img src="{% static 'images/accesoDenegado_.png' %}" alt="Acceso Denegado" style="width: 30%;" class="mx-auto d-block"> 
             <br>
             <br>
             <h1 class="titulo-centrado">Inicie sesión para registrarse como artista</h1>
@@ -39,9 +39,9 @@
 
 <style>
     .titulo-artistico {
-        font-family: 'Your-Font-Name', cursive; /* Reemplaza 'Your-Font-Name' con la fuente que desees */
-        font-size: 36px; /* Tamaño de fuente personalizado */
-        color: #ff5733; /* Color de fuente personalizado */
+        font-family: 'Your-Font-Name', cursive; 
+        font-size: 36px; 
+        color: #ff5733; 
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto personalizada */
     }
     .center-content {

@@ -107,10 +107,23 @@ def formularioAltaUsuario(request):
         return render(request, 'formularioAltaUsuario.html')
 
 
+
+from django.contrib.auth.decorators import user_passes_test
+
+# Define una función de prueba que verifica si el usuario tiene permiso para escribir en la BD
+def tiene_permiso_escritura(user):
+    return user.has_perm('permiso_personalizado')
+
+
+
 #Creo funcion para dar de alta la obra.
 
 def formularioAltaObraArte(request):
+    
     artistas = Artista.objects.all() 
+    galerias = Galeria.objects.all()
+    obra_guardada = False  # Variable para indicar si la obra se guardó con éxito
+    
     if request.method == 'POST':
         # Obtengo los datos del formulario
         titulo = request.POST['titulo']
@@ -120,7 +133,14 @@ def formularioAltaObraArte(request):
         imagen = request.FILES['imagen']
         fecha_creacion = request.POST['fechaCreacion']
         vendido = request.POST.get('vendido', False)  # Podría ser nulo, por lo que usamos get
-
+        galeria_id = request.POST.get('galeria')
+       
+       # Comprueba si la galería con el ID proporcionado existe
+        try:
+            galeria = Galeria.objects.get(id=galeria_id)
+        except Galeria.DoesNotExist:
+            galeria = None
+       
         # Creo la instancia del modelo ObraArte y la guardo en la BD
         obra_arte = ObraArte(
             titulo=titulo,
@@ -130,15 +150,26 @@ def formularioAltaObraArte(request):
             imagen=imagen,
             fechaCreacion=fecha_creacion,
             vendido=vendido
+            #galeria_id=galeria_id
         )
-        obra_arte.save()
-
+        # Asocia la obra de arte a la galería si la galería existe
+        if galeria:
+            obra_arte.galeria = galeria
+            obra_arte.save()
+            obra_guardada = True
+            
+        if tiene_permiso_escritura(request.user):
+            print("El usuario tiene permiso para escribir en la base de datos")
         
         return render(request, 'index.html')
 
     else:
         
-        return render(request, 'formularioAltaObraArte.html', {'artistas': artistas})
+        return render(request, 'formularioAltaObraArte.html', {
+            'artistas': artistas,
+            'galerias': galerias,
+            'obra_guardada': obra_guardada,  # Pasa la variable de contexto
+        })
         #return render(request, 'formularioAltaObraArte.html')
 
 
@@ -296,11 +327,19 @@ def buscar_artista(request):
         'sin_resultados': sin_resultados,
     })
 
-def lista_obras_galeria(request, galeria_id):
+#def lista_obras_galeria(request, galeria_id):
     #print("Valor de galeria_id:", galeria_id)  # Imprime 
+#    galeria = get_object_or_404(Galeria, pk=galeria_id)
+#    obras = galeria.obras.all()
+#    return render(request, 'lista_obras_galeria.html', {'obras': obras})
+
+def lista_obras_galeria(request, galeria_id):
+    print("Valor de galeria_id:", galeria_id)  # Imprime el ID de la galería
     galeria = get_object_or_404(Galeria, pk=galeria_id)
     obras = galeria.obras.all()
+    print("Número de obras recuperadas:", len(obras))  # Imprime el número de obras
     return render(request, 'lista_obras_galeria.html', {'obras': obras})
+
 
 def detalle_obra(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
@@ -317,13 +356,17 @@ def detalle_obra(request, obra_id):
 def detalle_obra_galeria(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
     
-    # Obtener la galería de la obra (si existe) a través del conjunto relacionado 'galerias'
-    galeria = obra.galerias.first()  # Cambia 'first()' por 'get()' si solo debe pertenecer a una galería
+    # Obtener la galería de la obra (si existe) a través del conjunto relacionado 'galeria'
+    galeria = obra.galeria
+    
+    # Recuperar todas las obras que pertenecen a la misma galería que la obra actual
+    obras_galeria = ObraArte.objects.filter(galeria=galeria)
     
     # Generar la URL inversa para 'lista_obras_galeria' con el galeria_id
     previous_url = reverse('lista_obras_galeria', kwargs={'galeria_id': galeria.id if galeria else None})
     
-    return render(request, 'detalle_obra_galeria.html', {'galeria': galeria, 'obra': obra, 'previous_url': previous_url})
+    return render(request, 'detalle_obra_galeria.html', {'galeria': galeria, 'obra': obra, 'obras_galeria': obras_galeria, 'previous_url': previous_url})
+
 
 #Consulta Artista
 def consulta_artista(request):

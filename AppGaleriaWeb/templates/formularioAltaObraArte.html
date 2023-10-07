@@ -47,6 +47,16 @@
                     <label for="id_vendido" class="mr-2">¿Vendido?</label>
                     <input type="checkbox" id="id_vendido" name="vendido" class="form-check-input">
                 </div>
+
+                <div class="form-group">
+                    <label for="id_galeria">Galería:</label>
+                    <select id="id_galeria" name="galeria" class="form-control">
+                        <option value="" selected>Selecciona una galería (opcional)</option>
+                        {% for galeria in galerias %}
+                            <option value="{{ galeria.id }}">{{ galeria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 
                 
                 
@@ -55,4 +65,21 @@
         </div>
     </div>
 </div>
+{% if obra_guardada %}
+    <div id="mensaje-exito" class="alert alert-success">
+        ¡La obra de arte se ha guardado con éxito!
+    </div>
+{% endif %}
+
+<script>
+    // Obtiene el elemento del mensaje de éxito
+    var mensajeExito = document.getElementById("mensaje-exito");
+
+    // Verifica si el mensaje de éxito está presente
+    if (mensajeExito) {
+        // Muestra el mensaje de éxito
+        mensajeExito.style.display = "block";
+    }
+</script>
+
 {% endblock contenidoNuevo %}

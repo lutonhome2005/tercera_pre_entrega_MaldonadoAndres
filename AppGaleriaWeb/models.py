@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Galeria(models.Model):
-    nombre = models.CharField(max_length= 50)
+    nombre = models.CharField(max_length=50)
     descripcion = models.TextField()
     fechaCreacion = models.DateField()
     obras = models.ManyToManyField('ObraArte', related_name='galerias', blank=True)
@@ -35,15 +35,17 @@ class Artista (models.Model):
 class ObraArte(models.Model):
     titulo = models.CharField(max_length=150)
     descripcion = models.TextField()
-    autor = models.ForeignKey(Artista, on_delete=models.CASCADE, related_name='obras')
-    precio = models.DecimalField( max_digits=10, decimal_places=2, null=True, blank=True)
+    autor = models.ForeignKey('Artista', on_delete=models.CASCADE, related_name='obras')
+    precio = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     imagen = models.ImageField()
     fechaCreacion = models.DateField()
     vendido = models.BooleanField(default=False)
-    
-    
+    # Relación ForeignKey a Galeria
+    # Una ObraArte pertenece a una Galeria
+    galeria = models.ForeignKey(Galeria, on_delete=models.SET_NULL, null=True, blank=True)
+
     def __str__(self):
-        return f'Autor: {self.autor} Titulo: {self.titulo} '
+        return f'Autor: {self.autor} Título: {self.titulo}'
 
 class Carrito(models.Model):
     comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='carritos')
