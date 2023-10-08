@@ -1,0 +1,59 @@
+{% extends 'pagina_inicio.html' %}
+{% block contenidoNuevo %}
+<div class="container mt-4">
+    <h1 class="titulo-centrado">Alta de Obra de Arte</h1>
+    <form action="{% url 'formularioAltaObraArte1' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_titulo">Título de la Obra de Arte:</label>
+            <input type="text" id="id_titulo" name="titulo" maxlength="150" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_descripcion">Descripción de la Obra de Arte:</label>
+            <textarea id="id_descripcion" name="descripcion" rows="4" required class="form-control"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_autor">Autor:</label>
+            <select id="id_autor" name="autor" required class="form-control">
+                {% for artista in artistas %}
+                    <option value="{{ artista.id }}">{{ artista.nombreArtista }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id_galeria">Galería:</label>
+            <select id="id_galeria" name="galeria" required class="form-control">
+                {% for galeria in galerias %}
+                    <option value="{{ galeria.id }}">{{ galeria.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_precio">Precio:</label>
+            <input type="text" id="id_precio" name="precio" maxlength="10" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_fechaCreacion">Fecha de Creación:</label>
+            <input type="date" id="id_fechaCreacion" name="fechaCreacion" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_vendido">¿Vendido?</label>
+            <input type="checkbox" id="id_vendido" name="vendido" class="form-check-input">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_imagen">Imagen:</label>
+            <input type="file" id="id_imagen" name="imagen" accept="image/*" required class="form-control-file">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock contenidoNuevo %}

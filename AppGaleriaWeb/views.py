@@ -71,7 +71,7 @@ def formularioAltaArtista(request):
         artista.save()
             
         #form = formularioAltaArtista(request.POST)
-        return render(request, 'registro_exitoso_artista.html')  # si todo salio bien envia a págian de inicio
+        return render(request, 'index.html')  # si todo salio bien envia a págian de inicio
     
     else:
         # es una solicitud GET, mostrar de nuevo el formulario
@@ -114,65 +114,97 @@ from django.contrib.auth.decorators import user_passes_test
 def tiene_permiso_escritura(user):
     return user.has_perm('permiso_personalizado')
 
+#
+def registro_exitoso_obra_arte(request):
+    return render(request, 'registro_exitoso_obra_arte.html')
 
 
-#Creo funcion para dar de alta la obra.
+#--------------------------------------------------------------------------------------------------
 
-def formularioAltaObraArte(request):
-    
-    artistas = Artista.objects.all() 
+from django.shortcuts import render
+from .models import ObraArte
+
+def formularioAltaObraArte1(request):
+    artistas = Artista.objects.all()
     galerias = Galeria.objects.all()
-    obra_guardada = False  # Variable para indicar si la obra se guardó con éxito
     
+     
     if request.method == 'POST':
-        # Obtengo los datos del formulario
+        # Obtén los datos del formulario
         titulo = request.POST['titulo']
         descripcion = request.POST['descripcion']
         autor_id = request.POST['autor']
-        precio = request.POST.get('precio')  # Podría ser nulo, por lo que usamos get
-        imagen = request.FILES['imagen']
+        precio = request.POST['precio']
         fecha_creacion = request.POST['fechaCreacion']
-        vendido = request.POST.get('vendido', False)  # Podría ser nulo, por lo que usamos get
-        galeria_id = request.POST.get('galeria')
-       
-       # Comprueba si la galería con el ID proporcionado existe
-        try:
-            galeria = Galeria.objects.get(id=galeria_id)
-        except Galeria.DoesNotExist:
-            galeria = None
-       
-        # Creo la instancia del modelo ObraArte y la guardo en la BD
+        vendido = request.POST.get('vendido', False)
+        imagen = request.FILES['imagen']
+
+        # Crea la instancia de ObraArte
         obra_arte = ObraArte(
             titulo=titulo,
             descripcion=descripcion,
             autor_id=autor_id,
             precio=precio,
-            imagen=imagen,
             fechaCreacion=fecha_creacion,
-            vendido=vendido
-            #galeria_id=galeria_id
+            vendido=vendido,
+            imagen=imagen,
         )
-        # Asocia la obra de arte a la galería si la galería existe
-        if galeria:
-            obra_arte.galeria = galeria
-            obra_arte.save()
-            obra_guardada = True
-            
-        if tiene_permiso_escritura(request.user):
-            print("El usuario tiene permiso para escribir en la base de datos")
+        obra_arte.save()
         
-        return render(request, 'index.html')
+        # Asocia la obra de arte a la galería seleccionada
+        galeria_id = request.POST['galeria']
+        if galeria_id:
+            galeria = Galeria.objects.get(id=galeria_id)
+            galeria.obras.add(obra_arte)
+
+
+
+        # Puedes mostrar un mensaje de éxito si lo deseas
+        return render(request, 'registro_exitoso_obra_arte.html')
 
     else:
-        
-        return render(request, 'formularioAltaObraArte.html', {
-            'artistas': artistas,
-            'galerias': galerias,
-            'obra_guardada': obra_guardada,  # Pasa la variable de contexto
-        })
-        #return render(request, 'formularioAltaObraArte.html')
+        # Es una solicitud GET, muestra el formulario de alta de ObraArte
+        # Debes proporcionar una lista de artistas disponibles para seleccionar el autor
+        # Por ejemplo, artistas = Artista.objects.all()
+        return render(request, 'formularioAltaObraArte1.html', {'artistas': artistas,'galerias': galerias})
 
 
+
+
+
+#Creo funcion para dar de alta la obra.
+
+from django.shortcuts import render, redirect
+from .models import ObraArte, Galeria
+from .forms import ObraArteForm
+
+def formularioAltaObraArte(request):
+    artistas = Artista.objects.all() 
+    galerias = Galeria.objects.all()
+    obra_guardada = False  # Variable para indicar si la obra se guardó con éxito
+    
+    if request.method == 'POST':
+        form = ObraArteForm(request.POST, request.FILES)
+        if form.is_valid():
+            obra_arte = form.save()
+            
+            # Si deseas asociar la obra de arte a una galería, puedes hacerlo aquí
+            galeria_id = request.POST.get('galeria', None)
+            if galeria_id:
+                galeria = Galeria.objects.get(pk=galeria_id)
+                obra_arte.galeria = galeria
+                obra_arte.save()
+                
+                
+            return render(request, 'registro_exitoso_obra_arte.html')  # Redirige a donde quieras después de guardar
+        else:
+            print(form.errors)  # Imprime los errores de validación en la consola para depuración
+    else:
+        form = ObraArteForm()
+    
+    return render(request, 'formularioAltaObraArte.html', {'form': form, 'galerias': galerias, 'obra_guardada': obra_guardada,'artistas': artistas})
+
+    
 
 # Creo la funcion para dar de alta las galerías
 
@@ -333,12 +365,19 @@ def buscar_artista(request):
 #    obras = galeria.obras.all()
 #    return render(request, 'lista_obras_galeria.html', {'obras': obras})
 
+
+###--------------------------------------------------------------------------------------------------
+
+
 def lista_obras_galeria(request, galeria_id):
     print("Valor de galeria_id:", galeria_id)  # Imprime el ID de la galería
     galeria = get_object_or_404(Galeria, pk=galeria_id)
     obras = galeria.obras.all()
     print("Número de obras recuperadas:", len(obras))  # Imprime el número de obras
     return render(request, 'lista_obras_galeria.html', {'obras': obras})
+
+
+
 
 
 def detalle_obra(request, obra_id):

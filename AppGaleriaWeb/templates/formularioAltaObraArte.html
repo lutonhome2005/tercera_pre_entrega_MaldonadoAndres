@@ -58,9 +58,20 @@
                     </select>
                 </div>
                 
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" id="botonCancelar" class="btn btn-secondary">Cancelar</button>
+                </div>
                 
-                
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <!-- Script para redirigir al hacer clic en "Cancelar" -->
+                <script>
+                    document.getElementById('botonCancelar').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.href = "{% url 'index' %}";
+                    });
+                </script>
+            
+            
             </form>
         </div>
     </div>
