@@ -18,6 +18,7 @@ urlpatterns = [
     path('contactos/',contactos),
     path('nuestros_servicios/', views.nuestros_servicios, name='nuestros_servicios'),
     path('sobre_nosotros/', sobre_nosotros, name='sobre_nosotros'),
+    path('pagina_en_construccion/', pagina_en_construccion, name='pagina_en_construccion'),
     path('formularioAltaArtista/', formularioAltaArtista, name='formularioAltaArtista'),
     path('registro/', registrar, name='registro'),
     path('registro_exitoso_obra_arte/', registro_exitoso_obra_arte, name='registro_exitoso_obra_arte'),

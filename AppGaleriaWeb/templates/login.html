@@ -1,11 +1,16 @@
 {% extends 'pagina_inicio.html' %}
 {% block contenidoNuevo %}
-    <h1 class="titulo-centrado">Registro de Artistas</h1>
-    <form action = "{% url 'login_view' %}" method="post">{% csrf_token %} 
-        
-        {{miFormulario.as_p}}
-
-        <button type="submit"> Ingresar </button>
-    </form>
-      
+    <h1 class="titulo-centrado">Inicio de Sesión</h1>
+    <div class="formulario-container">
+        <form action="{% url 'login_view' %}" method="post" class="login-form">
+            {% csrf_token %}
+            {{ miFormulario.as_p }}
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+        <div class="mensaje">
+            {% if mensaje %}
+                {{ mensaje }}
+            {% endif %}
+        </div>
+    </div>
 {% endblock contenidoNuevo %}

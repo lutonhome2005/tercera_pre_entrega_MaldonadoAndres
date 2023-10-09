@@ -47,6 +47,9 @@ def nuestros_servicios(request):
 def sobre_nosotros(request):
     return render (request, 'sobre_nosotros.html')
 
+def pagina_en_construccion(request):
+    return render (request, 'pagina_en_construccion.html')
+
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 def formularioAltaArtista(request):
