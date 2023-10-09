@@ -230,3 +230,11 @@ body.registro {
 .login-button:hover {
   background-color: #0056b3;
 }
+/* Estilo CSS para alinear horizontalmente la imagen y el número del teléfono */
+.telefono {
+  display: flex;
+  align-items: center; /* Alinear verticalmente al centro */
+}
+.telefono svg {
+  margin-right: 5px; /* Espacio entre la imagen y el número */
+}

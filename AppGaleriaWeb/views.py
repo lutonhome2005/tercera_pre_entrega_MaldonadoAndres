@@ -474,7 +474,7 @@ def detalle_obra(request, obra_id):
     
     return render(request, 'detalle_obra.html', {'obra': obra, 'previous_url': previous_url})
 
-
+from django.shortcuts import redirect
 def detalle_obra_galeria(request, obra_id):
     obra = get_object_or_404(ObraArte, pk=obra_id)
     
@@ -488,6 +488,7 @@ def detalle_obra_galeria(request, obra_id):
     previous_url = reverse('lista_obras_galeria', kwargs={'galeria_id': galeria.id if galeria else None})
     
     return render(request, 'detalle_obra_galeria.html', {'galeria': galeria, 'obra': obra, 'obras_galeria': obras_galeria, 'previous_url': previous_url})
+
 
 
 #Consulta Artista

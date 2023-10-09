@@ -3,7 +3,10 @@
 <div class="menu">
   <div class="center-content">
     <h1>Detalles de la Obra</h1>
-    <a href="{{ previous_url }}" class="btn btn-primary">Volver</a>
+    <!-- Verificar si la galería existe antes de mostrar el botón "Volver" -->
+    {% if galeria %}
+      <a href="{% url 'lista_obras_galeria' galeria.id %}" class="btn btn-primary">Volver a la Galería</a>
+    {% endif %}
     <h2>{{ obra.titulo }}</h2>
     <p>{{ obra.descripcion }}</p>
     <p>Artista: {{ obra.autor.nombreArtista }}</p>

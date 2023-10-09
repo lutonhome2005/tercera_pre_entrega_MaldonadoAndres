@@ -29,7 +29,6 @@ urlpatterns = [
     path('aviso_registroArtista/', aviso_registroArtista, name='aviso_registroArtista'),
     path('formularioAltaUsuario/', formularioAltaUsuario, name='formularioAltaUsuario'),
     path('formularioAltaObraArte1/', formularioAltaObraArte1, name='formularioAltaObraArte1'),
-    #path('formularioAltaObraArte/', formularioAltaObraArte, name='formularioAltaObraArte'),# Nueva URL para dar de alta obras de arte
     path('formularioAltaGaleria/', formularioAltaGaleria, name='formularioAltaGaleria'),# Nueva URL para dar de alta Galerias
     path('formularioAltaCarrito/', formularioAltaCarrito, name='formularioAltaCarrito'),#Nueva URL para dar de alta los Carritos
     path('lista_artistas/', lista_artistas, name='lista_artistas'),# Nueva URL para listar los artistas
