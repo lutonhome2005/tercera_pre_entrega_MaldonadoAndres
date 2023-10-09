@@ -4,21 +4,22 @@
     <h1 class="titulo-centrado">Consultas</h1>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form method="post" action="{% url 'consulta_artista' %}">
+            <form method="post" action="{% url 'enviar_consulta_artista' %}?artista_id={{ artista.id }}{% if obra %}&obra_id={{ obra.id }}{% endif %}">
+
                 {% csrf_token %}
-                <!-- Detalles del artista -->
+                
                 <div class="form-group">
                     <label for="nombreCompleto">Artista:</label>
                     <input type="text" class="form-control" id="nombreCompleto" value="{{ artista.nombreArtista }} {{ artista.apellidoArtista }}" readonly>
                 </div>
-                <!-- Detalles de la obra (si está disponible) -->
+                
                 {% if obra %}
                     <div class="form-group">
                         <label for="obra">Obra:</label>
                         <input type="text" class="form-control" id="obra" value="{{ obra.titulo }}" readonly>
                     </div>
                 {% endif %}
-                <!-- Campos de consulta -->
+                
                 <div class="form-group">
                     <label for="nombreCompleto">Nombre Completo:</label>
                     <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" required>
@@ -26,6 +27,10 @@
                 <div class="form-group">
                     <label for="telefono">Teléfono:</label>
                     <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="mensaje">Mensaje:</label>

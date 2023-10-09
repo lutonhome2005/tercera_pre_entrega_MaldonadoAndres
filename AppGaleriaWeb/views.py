@@ -6,11 +6,91 @@ from AppGaleriaWeb import views
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-
-
-
+from django.template.loader import render_to_string
+#Envio de email
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail,EmailMessage
+from django.conf import settings
 
 # Create your views here.
+
+def enviar_correo(request):
+    if request.method == 'POST':
+        nombre_completo = request.POST['nombre_completo']
+        telefono = request.POST['telefono']
+        email = request.POST['email']
+        asunto = request.POST['asunto']
+        descripcion = request.POST['descripcion']
+
+        # Cuerpo del mensaje
+        mensaje = f'Nombre: {nombre_completo}\nTeléfono: {telefono}\nEmail: {email}\nAsunto: {asunto}\nDescripción: {descripcion}'
+
+        try:
+            # Enviar correo
+            send_mail(
+                'Formulario de Contacto',  # Asunto del correo
+                mensaje,  # Cuerpo del correo
+                settings.EMAIL_HOST_USER,  # Remitente
+                ['CoderPtyhonWeb2023@gmail.com'],  # Destinatario
+                fail_silently=False,
+            )
+            return redirect('email_exitoso')  # Redirige a una página de éxito
+        except Exception as e:
+            # Manejo de errores (puedes personalizar esto)
+            return redirect('email_fallido')  # Redirige a una página de error
+    else:
+        return render(request, 'contactos.html')
+    
+
+# Vista para enviar una consulta de un artista
+def enviar_consulta_artista(request):
+    artista_id = request.GET.get('artista_id')
+    obra_id = request.GET.get('obra_id')
+    
+  
+    artista = get_object_or_404(Artista, pk=artista_id)
+    obra = get_object_or_404(ObraArte, pk=obra_id) if obra_id else None
+    
+    if request.method == 'POST':
+        nombre_completo = request.POST['nombreCompleto']
+        telefono = request.POST['telefono']
+        email = request.POST['email']
+        mensaje = request.POST['mensaje']
+
+        # Dirección de correo a la que se enviará la consulta
+        destinatario = artista.emailArtista  # Cambia esto a la dirección de correo real
+
+        # Cuerpo del mensaje
+        cuerpo_mensaje = f'Nombre: {nombre_completo}\nTeléfono: {telefono}\nEmail: {email}\nMensaje: {mensaje}'
+
+        try:
+            # Enviar correo
+            send_mail(
+                'Consulta de Artista',  # Asunto del correo
+                cuerpo_mensaje,  # Cuerpo del correo
+                email,  # Remitente (cambia esto)
+                [destinatario],  # Destinatario
+                fail_silently=False,
+            )
+            return render(request, 'email_exitoso.html')  # Redirige a la página de éxito
+        except Exception as e:
+            # Manejo de errores (puedes personalizar esto)
+            return render(request, 'email_fallido.html')  # Redirige a la página de error
+
+    return render(request, 'consulta_artista.html', {'artista': artista, 'obra': obra})
+
+
+
+
+#Envio Exitoso
+#Creamos la vista de Inicio
+def email_exitoso(request):
+    return render(request, 'email_exitoso.html')
+
+#Email Fallido
+def email_fallido(request):
+    return render(request, 'email_fallido.html')
+
 
 #Creamos la vista de Inicio
 def index(request):
