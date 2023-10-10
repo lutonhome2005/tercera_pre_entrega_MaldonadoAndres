@@ -1,3 +1,8 @@
+Usuario Administrador
+user: amaldonado
+pass: 123456
+
+
 Idea
 La pagina WEb es una pagina WEB donde la intención es que los artistas publiquen sus Obras de artes para luego si alguíen le gusta alguna obra la pueda comprar(no implementado) o enviarle algún mensaje de Texto.
 
