@@ -42,7 +42,7 @@ class ObraArte(models.Model):
     vendido = models.BooleanField(default=False)
     # Relación ForeignKey a Galeria
     # Una ObraArte pertenece a una Galeria
-    galeria = models.ForeignKey(Galeria, on_delete=models.SET_NULL, null=True, blank=True)
+    galeria = models.ForeignKey(Galeria, on_delete=models.CASCADE)  # Cambio el on_delete a CASCADE
 
     def __str__(self):
         return f'Autor: {self.autor} Título: {self.titulo}'
