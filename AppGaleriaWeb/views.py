@@ -203,15 +203,13 @@ def registro_exitoso_obra_arte(request):
 
 
 #--------------------------------------------------------------------------------------------------
-
 from django.shortcuts import render
-from .models import ObraArte
+from .models import ObraArte, Galeria
 
 def formularioAltaObraArte1(request):
     artistas = Artista.objects.all()
     galerias = Galeria.objects.all()
     
-     
     if request.method == 'POST':
         # Obtén los datos del formulario
         titulo = request.POST['titulo']
@@ -222,34 +220,43 @@ def formularioAltaObraArte1(request):
         vendido = request.POST.get('vendido', False)
         imagen = request.FILES['imagen']
 
-        # Crea la instancia de ObraArte
-        obra_arte = ObraArte(
-            titulo=titulo,
-            descripcion=descripcion,
-            autor_id=autor_id,
-            precio=precio,
-            fechaCreacion=fecha_creacion,
-            vendido=vendido,
-            imagen=imagen,
-        )
-        obra_arte.save()
-        
-        # Asocia la obra de arte a la galería seleccionada
-        galeria_id = request.POST['galeria']
-        if galeria_id:
-            galeria = Galeria.objects.get(id=galeria_id)
-            galeria.obras.add(obra_arte)
+        # Obtén el valor de la galería desde el formulario
+        galeria_id = request.POST.get('galeria', None)
 
+        # Verifica si se ha seleccionado una galería
+        if galeria_id is not None:
+            try:
+                galeria = Galeria.objects.get(id=galeria_id)
+                obra_arte = ObraArte(
+                    titulo=titulo,
+                    descripcion=descripcion,
+                    autor_id=autor_id,
+                    precio=precio,
+                    fechaCreacion=fecha_creacion,
+                    vendido=vendido,
+                    imagen=imagen,
+                    galeria=galeria,  # Asigna la galería a la obra de arte
+                )
 
+                obra_arte.save()
+                
+                # Asocia la obra de arte con la galería
+                galeria.obras.add(obra_arte)
 
-        # Puedes mostrar un mensaje de éxito si lo deseas
-        return render(request, 'registro_exitoso_obra_arte.html')
-
+                return render(request, 'registro_exitoso_obra_arte.html')
+            except Galeria.DoesNotExist:
+                # Manejar el caso donde la galería no existe
+                return render(request, 'error.html', {'mensaje': 'La galería seleccionada no existe.'})
+        else:
+            # Manejar el caso donde no se selecciona una galería
+            return render(request, 'error.html', {'mensaje': 'Debes seleccionar una galería.'})
     else:
         # Es una solicitud GET, muestra el formulario de alta de ObraArte
         # Debes proporcionar una lista de artistas disponibles para seleccionar el autor
         # Por ejemplo, artistas = Artista.objects.all()
-        return render(request, 'formularioAltaObraArte1.html', {'artistas': artistas,'galerias': galerias})
+        return render(request, 'formularioAltaObraArte1.html', {'artistas': artistas, 'galerias': galerias})
+
+
 
 
 
@@ -456,6 +463,7 @@ def lista_obras_galeria(request, galeria_id):
     print("Valor de galeria_id:", galeria_id)  # Imprime el ID de la galería
     galeria = get_object_or_404(Galeria, pk=galeria_id)
     obras = galeria.obras.all()
+    #galeria.obras.all()
     print("Número de obras recuperadas:", len(obras))  # Imprime el número de obras
     return render(request, 'lista_obras_galeria.html', {'obras': obras})
 
